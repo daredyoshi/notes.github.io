@@ -1,7 +1,7 @@
 # Linear combinations, span, and basis vectors
 
 ## Basis Vectors $`{\hat{\textbf{\i}}}`$ and $`{\hat{\textbf{\j}}}`$ 
-There are two very special vectors in the x, y coordinate system. $`{\hat{\textbf{\i}}}`$ is the unit vector of the x axis and `${\hat{textbf{\j}}}`$ is the unit vector of the y axis. Unit vector means they both have a magnitude of 1. 
+There are two very special vectors in the x, y coordinate system. $`{\hat{\textbf{\i}}}`$ is the unit vector of the x axis and $`{\hat{textbf{\j}}}`$ is the unit vector of the y axis. Unit vector means they both have a magnitude of 1. 
 
 When given a vector you can imagine that vector scaling $`{\hat{\textbf{\i}}}`$ and $`{\hat{\textbf{\j}}}`$. 
 
