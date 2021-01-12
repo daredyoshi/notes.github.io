@@ -20,7 +20,7 @@ The coordinates of a vector is the numbers that determine it in each axis. They 
 ## Vector Addition
 To all 2 vectors, move the second one so that :starts at the tip of the first one. This type of addition is the only case in linear algebra where we concipate vectors away from the origin. This is the same as the sum of each number in each of the vectors.
 
-:It's like taking all of the steps of each vector manually. 1x+2x+4y+5y
+It's like taking all of the steps of each vector manually. 1x+2x+4y+5y
 
 ## Vector Multiplication
 Multiplying a vector by single number is called *scaling* vectors. You are multiplying each of the vectors' components by that number. 
