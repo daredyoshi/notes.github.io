@@ -1,5 +1,7 @@
 # Linear combinations, span, and basis vectors
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/k7RM-ot2NWY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Basis Vectors $\mathbf{\hat{\imath}}$ and ${\mathbf{\hat{\jmath}}}$   
 There are two vry special vectors in the x, y coordinate system. ${\mathbf{\hat{\imath}}}$   is the unit vector of the x axis and ${\hat{\mathbf{\jmath}}}$  is the unit vector of the y axis. Unit vector means they both have a magnitude of 1. 
 

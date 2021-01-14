@@ -1,5 +1,7 @@
 #Vectors, what even are they?
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fNk_zzaMoSs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ##There are three different perspectives on vectors
 1. Physics Student
     Vectors are arrows in space. You can move it all around and it's still the same vector. Vectors in flat planes are 2d, and 3d ones are in space.
