@@ -1,6 +1,10 @@
-# Welcome to MkDocs
+# Welcome to David's Personal information repository!
 
+## These were created with mkdocs
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+I'm also using mkdocs-material
+    pip install mkdocs mkdocs-material 
+
 
 ## Commands
 
