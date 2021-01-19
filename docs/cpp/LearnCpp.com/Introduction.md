@@ -55,4 +55,15 @@ Because I am using vim, I've folowed [this guide](https://dane-bulat.medium.com/
 
 I also used his [previous guide](https://dane-bulat.medium.com/powerline-on-linux-an-integration-guide-c097831106f6) to futher extend vim with some more savvy plugins.
 
-The guides also go over linking libraries with cmake, which was very useful. I now have a project root and buildsystem for following alowing with these tutorials. 
+The guides also go over linking libraries with cmake, which was very useful. I now have a project root and buildsystem for following alowing with these tutorials.
+
+There are two types of build configuration usually: debug and release. 
+Debug is great for prints and breaks, release is optimized and used for distrubution and benchmarking. 
+
+## Configuring your compiler: compiler extensions
+
+You generally want to disable all compilier extentions, because they will make it so that you can only compile with this compiler. I did this by adding ```-pedantic-errors``` to my gcc in my CMakeLists.txt
+
+Compilers issue warnings about things that are not great. It's good not to let warnings pile up. Sometimes you may need to tell the compiler not to generate a particular warning. Gcc supports this with #pragma directives. My gcc flags are as follows to enable maximum warnings ```set(gcc_flags "-Wall;-Werror;-Wunused;-Wextra;-Wshadow;-Wshadow;-Wformat=2;-pedantic-errors")```
+
+
