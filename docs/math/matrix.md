@@ -9,3 +9,5 @@ Multiplying 3d vectors written out [Three-dimensional linear transformations](..
 
 The determinant of the matrix is the volume/area that it's basis vectors take up. Read more on how this works [here](../Essence_of_linear_algebra/006_The_determinant)
 
+Taking the dot product of two vectors is the same operation as creating a one row matrix out of the first one and treating it as a transform. [link](../Essence_of_linear_algebra/009_Dot_products_and_duality)
+
