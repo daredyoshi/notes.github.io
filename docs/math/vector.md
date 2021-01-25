@@ -15,3 +15,6 @@ The dot project projects two vectors onto the number line. If it's positive they
 
 ## Cross Product 
 Aka "vector product" - this is like the dot product but for each row of the vector without the linear transformation. Read the [basics](../Essence_of_linear_algebra/010_Cross_Products) and then why the basis vectors are used in the first columns [here](../Essence_of_linear_algebra/011_Cross_Products_in_the_light_of_linear_transformations)
+
+## Rotating a vector in a different coordiante space
+What if you want to rotate a joint not in it's parent coordinate space but in that of another joint in a different hierarchy? [Change of basis](../Essence_of_linear_algebra/013_Change_of_basis)

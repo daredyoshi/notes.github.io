@@ -11,3 +11,9 @@ The determinant of the matrix is the volume/area that it's basis vectors take up
 
 Taking the dot product of two vectors is the same operation as creating a one row matrix out of the first one and treating it as a transform. [link](../Essence_of_linear_algebra/009_Dot_products_and_duality)
 
+
+## Rotating a vector in a different coordiante space
+What if you want to rotate a joint not in it's parent coordinate space but in that of another joint in a different hierarchy? [Change of basis](../Essence_of_linear_algebra/013_Change_of_basis)
+
+
+Cramer's rule is not really useful other than a conceptual thought experiement, because you could also just use gaussian elemination with an inverted matrix to get the same resule with better computation efficiancy. It's useful for determining single axes of vectors though, and to prove things geometrically. [Cramer's rule, explained geometrically](../Essence_of_linear_algebra/012_Cramers_rule_explained_geometrically)
