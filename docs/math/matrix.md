@@ -17,3 +17,5 @@ What if you want to rotate a joint not in it's parent coordinate space but in th
 
 
 Cramer's rule is not really useful other than a conceptual thought experiement, because you could also just use gaussian elemination with an inverted matrix to get the same resule with better computation efficiancy. It's useful for determining single axes of vectors though, and to prove things geometrically. [Cramer's rule, explained geometrically](../Essence_of_linear_algebra/012_Cramers_rule_explained_geometrically)
+
+For every transformation of a matrix, the vectors that do not change direction are eigenvectors. They are very useful to know. [](../014_Eigenvectors_and_eigenvalues)
