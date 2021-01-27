@@ -1,5 +1,7 @@
 # Change of basis
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/P2LTAUO1TdA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 As a review in linear algebra wewe often think of each element in a vector scaling it's corresponding basis vectors. A **Coordinate system** is any way to translate between vectors and sets of numbers. Let's imagine using different basis vectors. 
 
 The same vectors in different coordinate spaces have different numbers. This is kind of like a transformed object space. Note that the origin will always be 0, 0. The direction of axes and spacing of grid lines can all change. So how do we translate between coordinate systems. So the alternative coordinate system might be represented like this:

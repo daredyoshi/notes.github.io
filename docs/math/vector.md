@@ -1,5 +1,8 @@
 # Vectors
 
+The definition of a vector and how to think about it [Abstract vector spaces](../Essence_of_linear_algebra/015_Abstract_vector_spaces)
+
+
 ## Basis vectors ${\mathbf{\hat{\imath}}}$ and ${\mathbf{\hat{\jmath}}}$ 
 These are the coordinate vectors by which a vector may be multiplied to be transformed into their coordinate space. 
 
