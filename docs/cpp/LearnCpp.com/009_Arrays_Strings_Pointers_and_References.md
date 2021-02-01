@@ -533,7 +533,7 @@ The advantage here is that you easile set the beginning and end.
 
 Unless otherwise specified, do not assume that the standard ilbrary algorithms will execute in a particular sequence. This means they do not iterate over the for-loop in sequential order, but in parallel. Favor these functions over writing your own. 
 
-
+A game I wrote with the concepts of this chapter can be found [here](https://github.com/daredyoshi/learn_cpp/blob/master/card_game/src/CardGame.cpp)
 
 
 
