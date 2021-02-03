@@ -341,6 +341,149 @@ int main()
 
 Don't use ellipsis. (...) captuer optional arguments. It can be thought of as an array that holds extra arguments. It allows functions to take a varialbe number of arguments without having to make an overloaded variation for each one. What makes them dangerous is that type checking is suspended. 
 
+## Lambdas
+
+A **lambda expression** is a function within a function, that is not part of any namespace. 
+
+```
+[captureClause] (parameters) -> returnType{
+    statements;
+}
+```
+
+The return type is optional - if left out auto will be assumed. Check out the example from a previous section re-written with lambda
+
+```
+constexpr std::array<std::string_view, 4> arr{"apple", "banana", "walnut", "lemon" };
+
+const auto found{ std::find_if(arr.begin(), arr.end(), 
+        [](std::string_view str){
+            return (std.find("nut") != std::string_view::npos);
+        }) };
+```
+
+In this case we are using the lambda "in line?" without storing it in a variable first. This can quicly become quite difficult to read. Using it this way is called a **function literal**. When we store lambdas in variables it can be a bit confusing, because don't know their type. This is because a type is generated for each lambda. Because of this we need to use auto:
+
+```cpp
+auto isEven{
+    [](int i){
+        return ((i%2) == 0);
+    }
+};
+
+return std::all_of(array.begin(), array.end(), isEven);
+```
+
+Technically lambdas aren't functions, but functors. These contain an overladed operator() that makes them callable like a function. Instead of using auto, std::function can also be used to capture all cases for lambdas. 
+
+!!! note
+    Use auto when initializating variables with lanbdas, and std::fucntion for function parameters. 
+
+As of C++ 14 we can use auto for parameters in lambda (in C++ 20 we can use it for regular functions too). These sort of lambdas are called **generic lambdas**, becasuse they can work with a wide variety of types. What used in the context of a lambda, auto is just a shorthand for a template parameters. Auto isn't always the best choice, for example, you might not want to pass in C-style strings a in a function that measures their length. 
+
+Note that when using auto with lambdas, a function is generated for each type. This means that if you are incrementing a static varialbe in each function, the count will be unique for each input value type. 
+
+If you do not specify a return type, and have mutliple return statements with differnt types, you will get a compile error. Remember that lambda auto infers the return type if none is specified. In cases like this it's best to specify a return type and let the compiler to implicit conversions. 
+
+Also try not to write lambdas for function that are already in <functional> !
+
+Labdas can only access global identifiers, entities that are known at compile time, and entities with static storage duration. This makes it hard to pass in runtime variables, and that is what the capture clause is for. The **captuer clause** gives a lambda access to variables avaliable in the surrounding scope that it would normally not have access to. 
+
+```cpp
+std::string search{};
+std:;cin >> search;
+
+auto found{ std::find_if(arr.begin(), arr.end(), [search](std::string_view std){ return std.find(search) != std::string_view::npos);
+}) };
+```
+
+If search was not in the capture clause, this function would not compile. It's important to know that this capture clause *clones* the variable in it. By default these are captured as const values, so you can't modify them. If you want to modify the variables you can use the mutable keyword:
+
+```cpp
+auto shoot{
+    [ammo]() mutable {
+     --ammo; \\ we can modify ammo no, and this will be across all calls of this function
+    }
+    std::cout << ammo << " shot(s) left \n"; \\ this will not be modified by lambda because the lambda is copying the function
+}
+```
+
+For cases like this it makes more sense to capture variables by reference. You should prefer this over capture by value
+
+```cpp
+auto shoot{
+    [&ammo]() {
+        --ammo; \\ this now modifies ammo inside and out of the lambda
+    }
+};
+```
+
+If your fingers are too tired to update your lambda captures after updating your lambdas, you can use **default capture** to capture all varialbes. To captuer all used variables by value use = and by reference use &
+
+```cpp
+auto found { std::find_if(areas.begin(), areas.end(), [=](int knownArea){
+            return (width * height == knownArea);
+}) };
+```
+
+You can also mix and match captures:
+
+```cpp
+[=, &enemies](){};
+```
+
+You can also define new variables directly in the capture. 
+
+```cpp
+[userArea{ width * height }](int knownArea) { 
+    return (userArea == knownArea);
+}
+```
+
+!!! note
+    Only initialize variables in the capture if their value is short and their type is obvious. Otherwise it's best to defined the variables outside of the lambda and captuer it. 
+
+If you are defining varialbes in-line for the lambda do not pass them by reference! They will be left dangline after the scope of the lambda has finished. 
+
+Also note than when copyinga lambda, you are copying it in it's current state with all the variables as they are. To avoid this you can wrap it in t a std::reference_wrapper which can be created by using the std::ref() function. This will ensure that all the lambdas are pointing to the same function object
+
+```cpp
+void invoke(const std::function<void(void)> &fn){
+    fn();
+}
+
+int main(){
+    int i{0};
+
+    auto count { [i]() mutable{
+        std::cout << ++1 << '\n';
+    }};
+
+    invoke(std::ref(count)); // 1
+    invoke(std::ref(count)); // 2
+    invoke(std::ref(count)); // 3
+
+    return 0;
+}
+
+```
+
+Standard library functinos my copy function objects. If you want to provide lambdas with mutable captured variables, pass them by reference usign std::ref
+
+!!! note
+    Try to avoid lambdas with states altogether. They are easier to understand and don't suffer fro mthe above issues, as well as more dangerout issues that arise when you add parallel execution.
+
+
+As a review for this chapter we wrote a binary search algorithm. First we made it iterative, then recursive. 
+
+
+
+
+
+
+
+
+
 
 
 
