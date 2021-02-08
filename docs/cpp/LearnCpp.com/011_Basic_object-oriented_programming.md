@@ -314,3 +314,199 @@ std::cout << calc.getvalue() << '\n';
 
 This allows very readable compression into a single expression. 
 
+## Class code and header files
+
+As classes get longer and more complicated, it becomes distracting having the implementation code next to the defenitions. Because of this it's common to defined member functions outside of the class itself.
+
+```cpp
+class Date
+{
+private:
+    int m_year;
+    int m_month;
+    int m_day;
+ 
+public:
+    Date(int year, int month, int day);
+ 
+    void SetDate(int year, int month, int day);
+ 
+    int getYear() { return m_year; }
+    int getMonth() { return m_month; }
+    int getDay()  { return m_day; }
+};
+ 
+// Date constructor
+Date::Date(int year, int month, int day)
+{
+    SetDate(year, month, day);
+}
+ 
+// Date member function
+void Date::SetDate(int year, int month, int day)
+{
+    m_month = month;
+    m_day = day;
+}
+```
+
+This way of seperating the definitions of the member functions from the class makes it much easier to put the class for forward-declaration into a header file. This doesn't violoate the one-definition rule because if the header file has proper header guards, it shoulnd't be possible to include the class definition more than once in the same file. 
+
+Defining member functions in the head does not violate the one-definition rule, because they are considered implicitly inline. This means it's no problem defining trivial member functions (such as getters/setters) inside the class definition itself. 
+
+* For classes used in only one file that aren't generally reusable, defien them directly in the single .cpp file they're used int. 
+* For classes used in multiple files, or intended for general reuse, define them in a .h file that has the same name as the class
+* Trivial member functions (trivial cnostructors or destructors, acces functions, etc...) can be defined inside the class. 
+* Non-trivial member functions should be defined in a .cpp file that has the same name as the class. 
+* Default parameters for member function should be declared int he class definitions (.h) where they can be seen by whomever #includes the header.
+
+
+The examples in this course usually have the classes defined in the main .cpp file for ease of illustration, but larger code project should have everything structured into headers etc. 
+
+A "header only" library is a library of .h files for your syntax comletion and illustration of the objects, and a pre-compiled binary. this makes it faster to link and recomiple, and it can be shared with many applications. It also makes it less likely that people will steal the code. 
+
+## Const class objects and member functions
+
+The guy who wrote doom says we should basically const all our functions and classes. What does this mean exactly?
+
+If you instantiate the class using the const keyword, any modification of the member variables of the object is disallowed. We're familiar with this behaviour and have already been using it. 
+
+This isn't what mr. doom meant tho, he meant consting member functions. This is because consting a class makes so you can't call any of the class' non const member functions! A **const member functions** is a member function that guarantees it will not modify the object or call any non-const member functions. To make a function a const member function, just append the const keyword to the function prototype after the parameter list, but before the function body:
+
+```cpp
+class Something{
+public:
+    int m_value;
+
+    Something(): m_value{0} {}
+
+    void resetValue() { m_value = 0; } 
+    void setValue(int value) { m_value = value; }
+
+    int getValue() const {return m_value;}
+};
+```
+
+!!! note
+    Make any member function that does not modify the state of the class object const, so that it can be called by const objects. 
+
+The const keyword must be used in both the function prototype in the class defintion and on the function definition. You can overload functions for different behaviour for const and non-const versions of the class. 
+
+## Static member variables
+
+When you instnatiate a class, each instance gets its own copy of all normal member variables. When you make a member variables static, it is the same reference across all instances of the object. Static members are not associated with class objects, they are create when the program starts and destroyed when the program ends. They can also be accessed directly without creating an instance of the class
+
+```cpp
+class something{
+public:
+    static int s_value;
+};
+
+int Something::s_value {1};
+
+int main (){
+    Something::s_value = 2;
+    std::cout << Something::s_value << '\n';
+    return 0;
+};
+```
+
+This can be useful for something like a unique id counter for the duration of the program...
+
+When you declare the static member variable in the function, you are informing the complier of its existence, but you still need to define it outside of the class. If the static member is a const integral type, or const enum, you can initialize it inside the class definitions. constexpr can also be initialized directly inside the class def. 
+
+```
+class Whatever{
+public:
+    static const int s_value{ 4 };
+    static constexpr std::array<int, 3> s_array{ 1, 2, 3 };
+};
+```
+
+Static member variables can also be useful when using an internal lookup tables (a list of pre-calculated values) - this will keep that value in memory only once no matter how many isntances of the class. 
+
+## Static member functions
+
+In order to access a private static member variable, you need a static member function. Just like the variables, they are not attached to any particular object, but to the class definition itself. You could also instantiate a member of the class and then call a function to access the variable, but that's not very clean. 
+
+```cpp
+class Something{
+private:
+    static int s_value;
+public:
+    static int getValue() {return s_value;}
+};
+
+int Something::s_value { 1 }; // init the variable
+
+int main(){
+    std::cout << Something::getValue() << '\n'; // no Something object instance required
+}
+```
+
+Because they are global in scope, static member functions have no *this pointer. This makes sense because static member function do not work on an object. 
+
+Static member functions can directly access other static member functions or variables, but not non-static members. This is because the non-static members must belong to a class object, and not class object has been instantiated yet. 
+
+C++ does not support static constructors. If you can, you should directly initialize your static variables. If you need to initialize your static variables with a function (which would run when the program is initialized) you can do it with a lambda function after the class declaration and call it immediately. 
+
+## Friend functions and classes
+
+Even though you might seperate code into each of your functions, there are some cases where you might want other closely-knit functions or classes have access to your class' private members. In these situations, there are two options:
+
+* Have the classes only use the publicly exposed functions. The downside is that this could clutter up the ui of the classes. You should never expose members that you don't think any user should be allowed to use. 
+
+* Use friend classes and friend functions. This lets other classes and functions access a class' private members.
+
+```cpp
+class Accumulator{
+private: 
+    int m_value;
+public:
+    Accumulator() { m_value = 0; }
+    void add(int value) { m_value += value; }
+    // Make the reset() function a friend of this class
+    friend void reset(Accumulator & accumulator);
+};
+
+// now reset can access the private member variable
+void reset(Accumulator & accumulatro){
+    accumulator.m_value = 0;
+}
+```
+
+Of course if the friend function is not part of the class, you won't have a *this pointer and will need to pass a reference to the object. You can also make entire classes friends of each other. If you want to make certain member functions friends of each other, you will have to have them be defined first with forward declaration. This hassle only happens if you are trying to define more than one class in a file, which wouldn't happen that often anyway. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

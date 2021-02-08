@@ -16,7 +16,7 @@ $$
 = (x, y);
 $$
 
-To move the character you use this formula. $\prime$ means "new", so $P\prime$ means "new Position". $ \overrightarrow{v}$ is velocity. 
+To move the character you use this formula. $\prime$ means "new", so $P\prime$ means "new Position". $\overrightarrow{v}$ is velocity. 
 
 $$
 P\prime = P + \overrightarrow{v}
