@@ -41,7 +41,8 @@ Because of code bloat, inlining function is best suited to short functions. You 
 ```cpp
 inline int min(int x, int y){
     return x> y ? y : x;
-}```
+}
+```
 
 Most modern compiliers automatically inline functions as appropriate. It's interesting though, because inline function can skirt the one-definition rule since they are not actually referenced by the linker. This will get interested when you get member functions in the next chapter. 
 

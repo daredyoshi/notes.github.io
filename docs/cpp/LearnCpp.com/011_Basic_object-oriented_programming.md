@@ -478,8 +478,77 @@ void reset(Accumulator & accumulatro){
 Of course if the friend function is not part of the class, you won't have a *this pointer and will need to pass a reference to the object. You can also make entire classes friends of each other. If you want to make certain member functions friends of each other, you will have to have them be defined first with forward declaration. This hassle only happens if you are trying to define more than one class in a file, which wouldn't happen that often anyway. 
 
 
+## Anonymous objects
 
+Anonymous objects are objects that are never stored in a variable. Example:
 
+```cpp
+int add(int x, int y){
+    int sum{ x + y };
+    return sum; // sum is a placeholder
+}
+
+int add(int x, int y){
+    return x + x; // anonymous object is created
+}
+```
+
+All anonymous objects have "expression scope" - they are created, evaluated, and destroyed in a single expression. 
+
+You can manually create anonymous objects by instancing objects and just ommitting the variable name
+
+```cpp
+Cents cents{ 5 };
+Cents{ 7 }; //anonymous
+```
+
+This is just really useful for ommiting temp variables and making the code more concice. 
+
+## Timing your code
+
+C++ comes with chrono, which is a bit of an archic timing functionality. We can wrap it up with a class like this:
+
+```cpp
+#include <chrono>
+
+class Timer
+{
+private:
+	// Type aliases to make accessing nested type easier
+	using clock_t = std::chrono::high_resolution_clock;
+	using second_t = std::chrono::duration<double, std::ratio<1> >;
+
+	std::chrono::time_point<clock_t> m_beg;
+
+public:
+	Timer() : m_beg(clock_t::now())
+	{
+	}
+
+	void reset()
+	{
+		m_beg = clock_t::now();
+	}
+
+	double elapsed() const
+	{
+		return std::chrono::duration_cast<second_t>(clock_t::now() - m_beg).count();
+	}
+};
+
+int main()
+{
+    Timer t;
+
+    // Code to time goes here
+
+    std::cout << "Time elapsed: " << t.elapsed() << " seconds\n";
+
+    return 0;
+}
+```
+
+Note that when benchmarking your code you should be using release builds only. Debug builds can be less performant in different ways than release builds. Always measure things at least 3 times to account for background processes and other things that might be effecting performance. Also note that these results will only be valid for your machines specific architecture. 
 
 
 
