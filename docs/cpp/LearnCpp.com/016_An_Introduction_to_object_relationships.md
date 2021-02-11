@@ -5,8 +5,8 @@ Objects, as concepts, are connected. A square "is a" shape, a flower "depends-on
 The idea of building complex objects from simpler ones is called **object composition**. Because objects in C++ are built from many smaller objects they are often referred to as **composite types**. 
 
 
-|--|--|--|--|
 | **Property** | **Composition** | **Aggregation** | **Association** | **Dependency**|
+|--|--|--|--|--|
 | Relationship Type | Whole/part | Whole/part | Otherwise unrelated| Otherwise unrelated | 
 |Members can belong to multiple classes | No | Yes | Yes | Yes |
 | Members existence managed by class | Yes | No | No | No |
