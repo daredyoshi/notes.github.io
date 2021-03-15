@@ -120,7 +120,7 @@ std::cout << std::setw(10) << left << 12345 << '\n'; // print left justified to 
 
 ## Stream classes for strings
 
-The string steram classes provide buffers that are not connected to keyboard or mouse. One of the primary uses of these is to buffer output for dispaly at a later time, or process input line-by-line. There are two ways to get data into a stringstream
+The string stream classes provide buffers that are not connected to keyboard or mouse. One of the primary uses of these is to buffer output for display at a later time, or process input line-by-line. There are two ways to get data into a stringstream
 
 ```cpp
 std::stringstream os;
@@ -164,6 +164,63 @@ os.str("");
 os.str();
 os.clear(); // generally a good idea to clear the error flags
 ```
+
+## Stream states and input validation
+
+There are several state flags in the ios_base class that signal conditions that might occur when using streams.
+
+| Flat | Meaning |
+| -- | -- |
+| goodbit | Everything is ok |
+| badbit | Some kind of fatal error occured | 
+| eofbit | the stream has reached the end of a file | 
+| failbit | A non-fatal error occured (e.g wrong input) |
+
+Generally you access these flags through ios
+
+| ios::_____ | Meaning| 
+| -- | -- |
+| good() | returns true if the goodbit is set | 
+| bad() | returns true if the badbit is set | 
+| eof() | returns true if the eofbit is set | 
+| fail() | returns true if the failbit is set | 
+| clear() | clears all flags and restores goodbit |
+| clear(state) | clears all flags and sets the state to state | 
+| rdstate() | returns the currently set flags | 
+| setstate(state) | set the state flag to state | 
+
+#### Input Validation
+
+The process of checking whether the user input means some set of criteia is **input validation**. There are generally two types of input validation: string and numeric. This is usually in the form of prompting the user for input and then rejecting it if it's not in the correct type. Numerical validation is usually to make sure the numbers are in the correct range. 
+
+Here are some useful validation functions:
+
+| Function | Meaning | 
+| -- | -- |
+|std::isalnum(int) | Is a letter or digit | 
+|std::isalpha(int) | Is a letter | 
+|std::iscntrl(int) | Is a control character | 
+|std::isdigit(int) | Is a digit |
+|std::isgraph(int) | Is printable char that is not whitespace |
+|std::isprint(int) | Is printable char including whitespace | 
+|std::ispunct(int) | Is neither alphanumeric or whitespace | 
+|std::isspace(int) | Is whitespace | 
+|std::isxdigit(int) | I hexadecimal digit (0-9, a-f, A-F) | 
+
+Yuo use it like this:
+
+```cpp
+bool isValudName(std::string_view name){
+    return std::range::all_of(name, [](char ch)){
+        return (std::isalpha(ch) || std::isspace(ch));}
+    }
+// Before C++20, without ranges
+  // return std::all_of(name.begin(), name.end(), [](char ch) {
+  //    return (std::isalpha(ch) || std::isspace(ch));
+  // });
+}
+```
+
 
 
 
