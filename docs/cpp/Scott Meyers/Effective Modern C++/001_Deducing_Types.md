@@ -248,7 +248,11 @@ auto createInitList(){
     * ```auto``` type deduduction is the same as template type deduction except when using uniform initialization where auto assumes it represents a ```std::initializer_list```
     * ```auto``` in a function return type or lambda implies template type deduction not ```auto``` type deduction
 
+## Item 3: Understand decltype
 
+```decltype``` tells you the name's or expression's type. Sometimes this returns something you would not expect. The primary use for ```decltype``` is declaring function templates where the function's return type depends on its parameter types. 
+
+One example of this is a template where you are overloading operator[]. Typically in a teamplate of type T this operator returns objects of type T&. 
 
 
 
