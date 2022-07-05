@@ -1,0 +1,3208 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>Move semantics and smart pointers - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#move-semantics-and-smart-pointers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Move semantics and smart pointers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Welcome to David's Personal information repository!
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Motion_Graphs_2002/" class="md-nav__link">
+        Motion Graphs
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Game Engine
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Game Engine" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Game Engine
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          Cherno Game Engine
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cherno Game Engine" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Cherno Game Engine
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Game%20Engine/Cherno_Game_Engine/002_Designing_our_GAME_ENGINE/" class="md-nav__link">
+        002 Designing our GAME ENGINE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Game%20Engine/Cherno_Game_Engine/008_Planning_the_Event_System/" class="md-nav__link">
+        Planning the Event System
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Motion Matching
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Motion Matching" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Motion Matching
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Motion%20Matching/Nucl.ai2015MotionMatching_TheRoadtoNextGenAnimation/" class="md-nav__link">
+        [Nucl.ai 2015] Motion Matching - The Road to Next Gen Animation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Cpp
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cpp" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Cpp
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CCrashCourseAFastPacedIntroduction/" class="md-nav__link">
+        CCrashCourseAFastPacedIntroduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_reference_links/" class="md-nav__link">
+        Useful Reference sites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" type="checkbox" id="__nav_5_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_3">
+          Cherno
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cherno" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          Cherno
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/BitwiseAndOrXorAndNotInCpp/" class="md-nav__link">
+        Bitwise AND (&), OR(|), XOR(^) and NOT (~) in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/IntroToBinaryAndBitwiseOperatorsInCpp/" class="md-nav__link">
+        Intro to Binary and Bitwise Operators in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/Precompiled_Headers_in_C%2B%2B/" class="md-nav__link">
+        Precompied Headers in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/Using_Libraries_in_C%2B%2B/" class="md-nav__link">
+        Using Libraries in C++
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4">
+          CppCon
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CppCon" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          CppCon
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/CppCon2014MikeActon-DataOrientedDesignandC%2B%2B/" class="md-nav__link">
+        CppCon 2014: Mike Acton "Data-Oriented Design and C++"
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/Cppcon2017_JohnLakos_LocalArenaMemoryAllocators_pt1/" class="md-nav__link">
+        CppCon 2017: John Lakos "Local ('Arena') Memory Allocators (part 1 of 2)"
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/Nicolai_Josuttis_The_Nightmare_of_Move_Semantics_for_Trivial_Classes/" class="md-nav__link">
+        The Nightmare of Move Semantics for Trivial Classes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_5">
+          LearnCpp.com
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LearnCpp.com" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          LearnCpp.com
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../000_Introduction/" class="md-nav__link">
+        000 Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../001_Cpp_Basics/" class="md-nav__link">
+        Statements and the structure of a program
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../002_Cpp_Basics_Functions_and_Files/" class="md-nav__link">
+        C++ Basics: Functions and Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../003_Debugging_Cpp_Programs/" class="md-nav__link">
+        Debugging C++ Programs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../004_Fundamental_Data_Types/" class="md-nav__link">
+        Fundamental Data Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../005_Operators/" class="md-nav__link">
+        Operators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../006_Object_Scope_and_Conversions/" class="md-nav__link">
+        Object Scope and Conversions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../007_Control_Flo_and_Error_Handling/" class="md-nav__link">
+        Control Flow and Error Handling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../008_Compound_types/" class="md-nav__link">
+        Compound Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../009_Arrays_Strings_Pointers_and_References/" class="md-nav__link">
+        Arrays, Strings, Pointers, and references
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../010_Functions/" class="md-nav__link">
+        Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../011_Basic_object-oriented_programming/" class="md-nav__link">
+        Basic object-oriented programming
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../013_Operator_Overloading/" class="md-nav__link">
+        Operator Overloading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../016_An_Introduction_to_object_relationships/" class="md-nav__link">
+        An Introduction to object relationships
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../017_Introduction_to_inheritance/" class="md-nav__link">
+        Introduction to inheritance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../018_VirtualFunctions/" class="md-nav__link">
+        Virtual Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../019_Templates/" class="md-nav__link">
+        Templates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Move semantics and smart pointers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Move semantics and smart pointers
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#r-value-references" class="md-nav__link">
+    R-value references
+  </a>
+  
+    <nav class="md-nav" aria-label="R-value references">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l-value-references" class="md-nav__link">
+    L-value references
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r-value-references_1" class="md-nav__link">
+    R-value references
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#move-constructors-and-move-assignments" class="md-nav__link">
+    Move constructors and move assignments
+  </a>
+  
+    <nav class="md-nav" aria-label="Move constructors and move assignments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#copy-semantics-review" class="md-nav__link">
+    Copy Semantics Review
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-insight" class="md-nav__link">
+    Key Insight
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdmove" class="md-nav__link">
+    std::move
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../020_Exceptions/" class="md-nav__link">
+        Exceptions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../021_The_Standard_Library/" class="md-nav__link">
+        The Standard Library
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../022_std%3A%3Astring/" class="md-nav__link">
+        std::string
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../023_Input_and_output_IO/" class="md-nav__link">
+        Input and output (IO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_6">
+          ModernCmake
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="ModernCmake" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          ModernCmake
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ModernCmake/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ModernCmake/000_Introduction_to_the_basics/" class="md-nav__link">
+        Intorduction to the basics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Scott Meyers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Scott Meyers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Scott Meyers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_1" type="checkbox" id="__nav_5_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_1">
+          Effective Modern C++
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Effective Modern C++" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Effective Modern C++
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Scott%20Meyers/Effective%20Modern%20C%2B%2B/000_Introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Scott%20Meyers/Effective%20Modern%20C%2B%2B/001_Deducing_Types/" class="md-nav__link">
+        Deducing Types
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Howto
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Howto" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Howto
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../howto/build_vim_ycm_no_sudo/" class="md-nav__link">
+        How to build vim with ycm completer on centos with no sudo access
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Math
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Math" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Math
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/matrix/" class="md-nav__link">
+        Matrix Fundamentals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/vector/" class="md-nav__link">
+        Vectors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Essence of calculus
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Essence of calculus" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Essence of calculus
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_calculus/001_The_Essence_of_Calculus/" class="md-nav__link">
+        The Essence of Caculus
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Essence of linear algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Essence of linear algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Essence of linear algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/001_Vectors_what_even_are_they/" class="md-nav__link">
+        001 Vectors what even are they
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/002_Linear_combinations_span_and_basis_vectors/" class="md-nav__link">
+        Linear combinations, span, and basis vectors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/003_Linear_transformations_and_matrices/" class="md-nav__link">
+        003 Linear transformations and matrices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/004_Matrix_multiplication_as_composition/" class="md-nav__link">
+        Matrix multiplication as composition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/005_Three-dimensional_linear_transformations/" class="md-nav__link">
+        Three-dimensional linear transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/006_The_determinant/" class="md-nav__link">
+        The determinant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/007_Inverse_matrices_column_space_and_null_space/" class="md-nav__link">
+        Inverse matrices, column space and null space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/008_Nonsquare_matrices_as_transformations_between_dimensions/" class="md-nav__link">
+        Nonsquare matrices as transformations between dimensions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/009_Dot_products_and_duality/" class="md-nav__link">
+        Dot products and duality
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/010_Cross_Products/" class="md-nav__link">
+        Cross Products
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/011_Cross_Products_in_the_light_of_linear_transformations/" class="md-nav__link">
+        Cross products in the light of linear transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/012_Cramers_rule_explained_geometrically/" class="md-nav__link">
+        Cramer's rule, explained geometrically
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/013_Change_of_basis/" class="md-nav__link">
+        Change of basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/014_Eigenvectors_and_eigenvalues/" class="md-nav__link">
+        Eigenvectors and eigenvalues
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/015_Abstract_vector_spaces/" class="md-nav__link">
+        Abstract vector spaces
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          Math for Game Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Math for Game Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          Math for Game Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/001_Character_Movement/" class="md-nav__link">
+        Math for Game Developers - Character Movement ( Points and Vectors )
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/002_Character_Movement_2/" class="md-nav__link">
+        Character Movement 2 (Subtracting Vectors)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/003_Character_Movement_3/" class="md-nav__link">
+        Math for Game Developers - Character Movement 3 (Vector Length)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/004_Distance_Comparison/" class="md-nav__link">
+        Math for Game Developers - Distance Comparison
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/005_Character_Movement_4/" class="md-nav__link">
+        Math for Game Developers - Character Movement 4
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/006_Character_Movement_5/" class="md-nav__link">
+        Math for Game Developers - Character Movement 5 (Unit-Length Vectors)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/007_Character_Movement_6/" class="md-nav__link">
+        Math for Game Developers - Character Movement 6
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/008_Backstabbing_Dot_Product/" class="md-nav__link">
+        Math for Game Developers - Backstabbing (Dot Product)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/009_Jumping_and_Gravity/" class="md-nav__link">
+        Math for Game Developers - Jumping and Gravity (Time Delta, Game Loop)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/010_Mouse_Control_Euler_Angles/" class="md-nav__link">
+        Mouse Control (Euler Angles)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Tensors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tensors" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Tensors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Tensors/Kahn_IntroductionToTensors/" class="md-nav__link">
+        Introduction to Tensors
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Rendering
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Rendering" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Rendering
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1" type="checkbox" id="__nav_8_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1">
+          OpenGL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="OpenGL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          OpenGL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/05_03_2021_benchmarking/" class="md-nav__link">
+        Benchmarking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/Pipeline_Map/" class="md-nav__link">
+        Pipeline Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3" type="checkbox" id="__nav_8_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3">
+          LearnOpenGL.com
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LearnOpenGL.com" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          LearnOpenGL.com
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_1" type="checkbox" id="__nav_8_1_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_1">
+          001 Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="001 Getting Started" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          001 Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/000_Creating_a_window/" class="md-nav__link">
+        OpenGL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/001_Hello_Window/" class="md-nav__link">
+        Hello Window
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/002_HelloTriangle/" class="md-nav__link">
+        Hello Triangle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/003_Shaders/" class="md-nav__link">
+        Shaders
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/004_Textures/" class="md-nav__link">
+        Textures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/005_Transformations/" class="md-nav__link">
+        005 Transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/006_Coordinate_Systems/" class="md-nav__link">
+        Coordinate Systems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/007_Camera/" class="md-nav__link">
+        007 Camera
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_2" type="checkbox" id="__nav_8_1_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_2">
+          002 Lighting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="002 Lighting" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          002 Lighting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/001_Colors/" class="md-nav__link">
+        Colors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/009_Basic_Lighting/" class="md-nav__link">
+        Basic Lighting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/010_Materials/" class="md-nav__link">
+        Materials
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/011_LightingMaps/" class="md-nav__link">
+        Lightin Maps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/012_Light_Casters/" class="md-nav__link">
+        Light Casters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/013_Multiple_lights/" class="md-nav__link">
+        Multiple Lights
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_3" type="checkbox" id="__nav_8_1_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_3">
+          003 Model Loading
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="003 Model Loading" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          003 Model Loading
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/003_Model_Loading/Assimp/" class="md-nav__link">
+        Assimp
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/003_Model_Loading/Mesh/" class="md-nav__link">
+        Mesh
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_4" type="checkbox" id="__nav_8_1_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_4">
+          004 Advanced OpenGl
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="004 Advanced OpenGl" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          004 Advanced OpenGl
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/001_Depth_testing/" class="md-nav__link">
+        Depth testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/002_Stencil_testing/" class="md-nav__link">
+        Stencil testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/003_Blending/" class="md-nav__link">
+        Blending
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/004_Framebuffers/" class="md-nav__link">
+        Framebuffers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/005_Face_culling/" class="md-nav__link">
+        Face culling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/006_Cubemaps/" class="md-nav__link">
+        Cubemaps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/007_Advanced_Data/" class="md-nav__link">
+        Advanced Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/008_Advanced_GLSL/" class="md-nav__link">
+        Advanced GLSL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/009_Geometry_Shader/" class="md-nav__link">
+        Geometry Shader
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/010_Instancing/" class="md-nav__link">
+        Instancing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/011_AntiAliasing/" class="md-nav__link">
+        Anti Aliasing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2" type="checkbox" id="__nav_8_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2">
+          Shaders
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Shaders" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_2">
+          <span class="md-nav__icon md-icon"></span>
+          Shaders
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2_1" type="checkbox" id="__nav_8_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2_1">
+          TheArtOfCode
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="TheArtOfCode" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          TheArtOfCode
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/shaders/TheArtOfCode/ShaderToy_Tutorial_Part_2-Building_stuff_with_circles/" class="md-nav__link">
+        Building Stuff with Circles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/shaders/TheArtOfCode/Shadertoy_for_absolute_beginners/" class="md-nav__link">
+        Shadertoy for absolute beginners
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#r-value-references" class="md-nav__link">
+    R-value references
+  </a>
+  
+    <nav class="md-nav" aria-label="R-value references">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l-value-references" class="md-nav__link">
+    L-value references
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r-value-references_1" class="md-nav__link">
+    R-value references
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#move-constructors-and-move-assignments" class="md-nav__link">
+    Move constructors and move assignments
+  </a>
+  
+    <nav class="md-nav" aria-label="Move constructors and move assignments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#copy-semantics-review" class="md-nav__link">
+    Copy Semantics Review
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-insight" class="md-nav__link">
+    Key Insight
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdmove" class="md-nav__link">
+    std::move
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="move-semantics-and-smart-pointers">Move semantics and smart pointers</h1>
+<p>It's pretty easy to forget to deallocate pointers. Even if you don't forget, there are many ways that pointers aren't deleted when functions exit early. If we wrap pointers in a class, then the destructor can automatically delete the pointer when the class goes out of scope. This sort of class is called <strong>smart pointer</strong>: a composition class that is designed to manage dynamically allocated memory and ensure that this memory gets deleted when the smart pointer object goes out of scope. </p>
+<p>The problem is if the pointer gets copied, then it's destroyed twice and the program will crash. This is because the default copy constructor will do a shallow copy of the value of the pointer. Both pointers are then pointing to the same resource. It will also happen if you are passing in parameters by value. </p>
+<p>The core idea behind <strong>move semantics</strong> is having our copy constructor and assignment transver/move ownership of the pointer from the source to the destination object. It means the class will transfer ownership of the object rather than make a copy. </p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Auto_ptr2</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Auto_ptr2</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="o">=</span><span class="k">nullptr</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">:</span><span class="n">m_ptr</span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">~</span><span class="n">Auto_ptr2</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// A copy constructor that implements move semantics</span>
+<span class="w">    </span><span class="n">Auto_ptr2</span><span class="p">(</span><span class="n">Auto_ptr2</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="c1">// note: not const</span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// transfer our dumb pointer from the source to our local object</span>
+<span class="w">        </span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// make sure the source no longer owns the pointer</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// An assignment operator that implements move semantics</span>
+<span class="w">    </span><span class="n">Auto_ptr2</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Auto_ptr2</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="c1">// note: not const</span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">this</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// make sure we deallocate any pointer the destination is already holding first</span>
+<span class="w">        </span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// then transfer our dumb pointer from the source to the local object</span>
+<span class="w">        </span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// make sure the source no longer owns the pointer</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="n">m_ptr</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">isNull</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_ptr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Resource</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Resource</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Resource acquired</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="o">~</span><span class="n">Resource</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Resource destroyed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Auto_ptr2</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res1</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Resource</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="n">Auto_ptr2</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res2</span><span class="p">;</span><span class="w"> </span><span class="c1">// Start as nullptr</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;res1 is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">res1</span><span class="p">.</span><span class="n">isNull</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;null</span><span class="se">\n</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;not null</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;res2 is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">res2</span><span class="p">.</span><span class="n">isNull</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;null</span><span class="se">\n</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;not null</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">res2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res1</span><span class="p">;</span><span class="w"> </span><span class="c1">// res2 assumes ownership, res1 is set to null</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Ownership transferred</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;res1 is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">res1</span><span class="p">.</span><span class="n">isNull</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;null</span><span class="se">\n</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;not null</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;res2 is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">res2</span><span class="p">.</span><span class="n">isNull</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;null</span><span class="se">\n</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;not null</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Avoid std::auto_ptr. This implmenents move semantics through the move and copy constructor. Passing it by value to a function will cause your resource to get moved to the function parameters (and destroyed when the function goes out of scope). It also deletes its contents using non-array delete, which means it won't work with dynamically allocated arays. It also doesn't play nice with a lot of the other classes in the std library. Consider it deprecated and don't use it.</p>
+</div>
+<p>Before C++11 there was no mechanism to differentiate "copy semantics" from "move semantics". Because of this the concept of "move" was formally defined and move semantics added to the language to properly differentiate copying from moving. The std::auto_ptr has now been replaces with std::unique_ptr, std::weak_ptr and std::shared_ptr.</p>
+<h2 id="r-value-references">R-value references</h2>
+<p>To understand move semantics we need to revisit the topic of r-values and l-values. Every expression in C++ has two properties: a type, and a <strong>value category</strong>. The value category is used for certain kinds of syntax checking. </p>
+<p>An <strong>l-value</strong> can be thought of as a function or object (or expression that evaluates to this). All l-values have memory addresses. They were originally defined as "values that are suitable to be on the left-hand side of an assignment expression". After the const keyword was added to the language, l-values were split into two sub-categories: modifiable and non-modifiable. </p>
+<p>An <strong>r-value</strong> is pretty much anything that is not an l-value. This includes literals, temp values, and anonymous objects. They are typically evaluated for their values, have expression scope, and <em>cannot</em> be assigned to. Because they are expression scope, as soon as assigning a value to them, they would already go out of scope. </p>
+<p>To support move semantics, C++11 introduced 3 new categories: pr-value, x-values, and gl-values, but we don't need to understand these to understand move semantics. </p>
+<h4 id="l-value-references">L-value references</h4>
+<p>Before C++11 this was the only type of reference. Now they are called l-value reference. These can only be initialized with modifiable l-values</p>
+<table>
+<thead>
+<tr>
+<th>L-value reference</th>
+<th>Can be initialized with</th>
+<th>Can modify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modifiable l-values</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Non-modifiable l-values</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>R-values</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>L-value references to const object can be initialized with l-values and r-values alike. However, those values can't be modified. </p>
+<table>
+<thead>
+<tr>
+<th>L-value reference to const</th>
+<th>Can be initialized with</th>
+<th>Can modify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modifiable l-values</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Non-modifiable l-values</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>R-values</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>These are particularly useful because they allow us to pass any type of argument without making a copy of the argument. </p>
+<h4 id="r-value-references_1">R-value references</h4>
+<p>As of C++11 there are now r-value references. These are designed to be initialized with r-values (only). They are created with a double &amp;&amp;.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lref</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">//l-value reference</span>
+<span class="kt">int</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">rref</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// r-value reference (cannot use x)</span>
+</code></pre></div>
+<p>They cannot be initialized with l-values</p>
+<table>
+<thead>
+<tr>
+<th>R-value reference</th>
+<th>Can be initialized with</th>
+<th>Can modify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modifiable l-values</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Non-modifiable l-values</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>R-values</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>R-value reference to const</th>
+<th>Can be initialized with</th>
+<th>Can modify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modifiable l-values</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Non-modifiable l-values</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>R-values</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Just like l-values references to const objects, r-value references extend the lifespan of the object they are initialized with to the lifespan of the r-value reference. They also allow you to modify they r-value!</p>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lref</span><span class="p">{</span><span class="w"> </span><span class="n">Fraction</span><span class="p">{</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// this won&#39;t compile because fraction is temp</span>
+<span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lref</span><span class="p">{</span><span class="w"> </span><span class="n">Fraction</span><span class="p">{</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// this will compile but you can&#39;t change fraction because it only exists as a temp value. Note that this also extends the lifespane of Fraction.</span>
+<span class="k">auto</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">rref</span><span class="p">{</span><span class="w"> </span><span class="n">Fraction</span><span class="p">{</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// this will compile and you can change the fraction and no copies are created. </span>
+</code></pre></div>
+<p>R-values are almost never used in this way, they are most often used as function parameters for overloads when you want to have different behaviour for l-value and r-value arguments. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">fun</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">lref</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;l-value </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">fun</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="n">rref</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;r-value </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h2 id="move-constructors-and-move-assignments">Move constructors and move assignments</h2>
+<h4 id="copy-semantics-review">Copy Semantics Review</h4>
+<p>Copy assignment is used to copy one class to another existing class. These constructors are provided by default for all classes unless the user specifies one. These copies do shallow copies, which may cause problems for classes that allocate dynamic memory, so classes that deal with dynamic memory should override these functions to do deep copies. Let's go back to our Auto_ptr class to see how this works.</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Auto_ptr3</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Auto_ptr3</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">:</span><span class="n">m_ptr</span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">~</span><span class="n">Auto_ptr3</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Copy constructor</span>
+<span class="w">    </span><span class="c1">// Do deep copy of a.m_ptr to m_ptr</span>
+<span class="w">    </span><span class="n">Auto_ptr3</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Auto_ptr3</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">T</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="o">*</span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Copy assignment</span>
+<span class="w">    </span><span class="c1">// Do deep copy of a.m_ptr to m_ptr</span>
+<span class="w">    </span><span class="n">Auto_ptr3</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Auto_ptr3</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Self-assignment detection</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">this</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// Release any resource we&#39;re holding</span>
+<span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// Copy the resource</span>
+<span class="w">        </span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">T</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="o">*</span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="n">m_ptr</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">isNull</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_ptr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>This still makes for a lot of resource creation and destruction. Every time the pointer is created or returned it does a deep copy of everything. This doesn't crash, but it's quite inefficient! Move semantics fixes this. Here is the same class using r-value references:</p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Auto_ptr4</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Auto_ptr4</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">:</span><span class="n">m_ptr</span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">~</span><span class="n">Auto_ptr4</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Move constructor</span>
+<span class="w">    </span><span class="c1">// Transfer ownership of a.m_ptr to m_ptr</span>
+<span class="w">    </span><span class="n">Auto_ptr4</span><span class="p">(</span><span class="n">Auto_ptr4</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// we&#39;ll talk more about this line below</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Move assignment</span>
+<span class="w">    </span><span class="c1">// Transfer ownership of a.m_ptr to m_ptr</span>
+<span class="w">    </span><span class="n">Auto_ptr4</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Auto_ptr4</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="k">noexcept</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Self-assignment detection</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">this</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// Release any resource we&#39;re holding</span>
+<span class="w">        </span><span class="k">delete</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// Transfer ownership of a.m_ptr to m_ptr</span>
+<span class="w">        </span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">a</span><span class="p">.</span><span class="n">m_ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// we&#39;ll talk more about this line below</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="n">m_ptr</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span><span class="o">*</span><span class="w"> </span><span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_ptr</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">isNull</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_ptr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>Now instead of creating and copying and destroying on assignment, the old pointer is set to null and the new pointer is pointed at the value. Moving the value makes it so that the pointer can be copied all over the place without the actual value changing. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want a move constructor and move assignment that do moves, you'll need to write them yourself. Only in rare cases where all other constructors are obstructed will cpp auto-create one. </p>
+</div>
+<h3 id="key-insight">Key Insight</h3>
+<p>If we do assignment or construct with an l-value, the only thing we can do is copy the l-value. We can't assume it's safe to alter the l-value, because it may be used again later in the program. a=b should never change b. </p>
+<p>If we do assignment or construction with an r-value, then we know that this is just a temp object anyway. Instead of copying this, we can then steal the resources from it to the object we're constructing or assignment. This is because that value will be discarded anyway!</p>
+<p>Because r-value references have a definition as of c++11, we can overload our constructor to use this more efficient method when r-values are provided to it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You should always re-assign your temp object to nullptr otherwise they will become dangling references. Otherwise when they are deconstructed they will delete the data of the pointer!</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Often it's desirable to disable the copy and assignment creator in move-enabled classes. This guides the user to use r-values instead.</p>
+</div>
+<h2 id="stdmove">std::move</h2>
+<p>When you start using move semantics more, you'll often want to move things with l-values. std::move does just this. It assigns an empty value to the variable, and passes the value on as a r-value. </p>
+<div class="highlight"><pre><span></span><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="n">myswap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">T</span><span class="w"> </span><span class="n">tmp</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// invokes move constructor</span>
+<span class="w">  </span><span class="c1">// a is now an empty string</span>
+<span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// invokes move assignment</span>
+<span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span><span class="w"> </span><span class="c1">// invokes move assignment</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>std::move gives a hint to the compiler that the programmer doesn't need this object anymore in it's current state. Move functions should always leave your objects in a well-defined state so they don't crash your program when they go out of scope. </p>
+<p>This is also very useful when sorting an array of elements. </p>
+<h1 id="stdmove_if_noexcept">std::move_if_noexcept</h1>
+<p>The noexcept exception specifier and operator is a guarantee to the compiler that a function or class will not raise any exceptions. </p>
+<p>Consider when we are coping an object, and this copy fails (e.g. the machine is out of memory). This doesn't harm the object being copied, and we move on. When moving, things aren't as simple. If the move operation brakes, then the original object will be empty and we might lose data. To comply with the <em>strong exception guarantee</em> that we want for our functions, we'd need to move the resource back to the source object. But there's no guarantee that move will work either.</p>
+<p>To counter this we have two options:</p>
+<ul>
+<li>Use noexcept on the constructor to prevent it from throwing an exception.</li>
+<li>Ust std::move_if_noexcept instead. </li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>std::move_if_noexcept will return a movable r-value if the object has a noexcept move constructor, otherwise it will return a copyable l-value. </p>
+</div>
+<p>This is great especially for templates where you might not be sure if a class has a noexcept constructor. This noexcept is not a compile-time guarantee, it's still up to the person writing the noexcept functions to wrap things up properly in a try catch block.</p>
+<p>The standard library uses noexcept a lot along with move_if_noexcept. It's useful, but not a guarantee. </p>
+<h1 id="stdunique_ptr">std::unique_ptr</h1>
+<p>If a function exits early, or throws an exception, there's a chance that your pointers might now get deleted. A smart pointer can offer other features, but the basic functionality of it is that it manages a dynamically allocated resources on the heap, and <em>ensures</em> destruction of that resource whenever the pointer goes out of scope.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Never dynamically allocate smart pointers themselves. If the smart pointer is never cleaned up, it will never clean up the object it's pointing to and the whole purpose of it will be invalid.</p>
+</div>
+<p>std::unique_ptr is the C++11 replacement for std::auto_ptr. This should be used to manage any dynamically allocated object that is not shared by multiple pointers. It also properly implements move semantics. </p>
+<div class="highlight"><pre><span></span><code><span class="n">res2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Won&#39;t compile: copy assignment is disabled</span>
+<span class="n">res2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">res1</span><span class="p">);</span><span class="w"> </span><span class="c1">// res2 assumes ownership, res1 is set to null</span>
+</code></pre></div>
+<p>Because it's designed with move semantics, copy initialization and copy assignment are disabled. Move semantics are the only way to transfer ownership. </p>
+<p>std::unique_ptr has overloaded * and -&gt; operators that work just like with regular pointers. Before using them you should check that the resource exists. This is easy because the implicit cast to bool return true if it's managing a resources. </p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res</span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Resource</span><span class="p">{}</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w"> </span><span class="c1">// use implicit cast to bool to ensure res contains a Resource</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// print the Resource that res is owning</span>
+</code></pre></div>
+<p>std::unique_ptr works well with arrays. </p>
+<div class="admonition rule">
+<p class="admonition-title">Rule</p>
+<p>Favor std::array, std::vector, or std::string over a smart pointer managing a fixed array, dynamic array, or c-style string.</p>
+</div>
+<p>As of C++14 there is also std::make_unique(), which is the preferred way to create smart pointers. It not only is more readable, but it handles some exceptions that can result form C++ leaving the order of evaluation for function arguments unspecified. </p>
+<div class="admonition rule">
+<p class="admonition-title">Rule</p>
+<p>use std::make_unique() instead of creating std::unique_ptr and using new yourself. </p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">f1</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">object</span><span class="o">&gt;</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span><span class="w"> </span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>Always return std::unique_ptr by value - the internals will apply the correct move semantics. </p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">createResource</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Likewise always pass std::unique_ptr by value into functions, and use std::move to put it into the arg. The compiler will force you to use std::move because copy semantics for std::unique_ptr have been disabled. </p>
+<div class="highlight"><pre><span></span><code><span class="c1">//    takeOwnership(ptr); // This doesn&#39;t work, need to use move semantics</span>
+<span class="n">takeOwnership</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ptr</span><span class="p">));</span><span class="w"> </span><span class="c1">// ok: use move semantics</span>
+</code></pre></div>
+<p>Even though this is possible, usually you won't want the function to take ownership of the pointer. If it took ownership, then the pointer would be destroyed afterwards. Just pass the resource the pointer is pointing to itself, by pointer or reference. This way the function can remain agnostic as to how the caller is managing resources. You can use get() on a std::unique_ptr to get the resource. In this case you don't want to delete the pointer at the end of the function since the memory will still be in use afterwards.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">useResource</span><span class="p">(</span><span class="n">Resource</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">useResource</span><span class="p">(</span><span class="n">ptr</span><span class="p">.</span><span class="n">get</span><span class="p">());</span><span class="w"> </span><span class="c1">// note: get() used here to get a pointer to the Resource</span>
+</code></pre></div>
+<p>You can use std::unique_ptr as part of your classes, but remember that if the class itself is dynamically allocated and not cleaned up using smart pointers won't make a difference. </p>
+<p>Two things to avoid with mart pointers</p>
+<ul>
+<li>Don't let multiple classes manage the same resource. </li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">Resource</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Resource</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res1</span><span class="p">{</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res2</span><span class="p">{</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>Both res1 and res2 will try to delete the same resource after going out of scope, which will lead to undefined behaviour.</p>
+<ul>
+<li>Don't manually delete the resource out from underneath the std::unique_ptr</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">Resource</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Resource</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">res1</span><span class="p">{</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">delete</span><span class="w"> </span><span class="n">res</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<h1 id="stdshared_ptr">std::shared_ptr</h1>
+<p>This is the class for when you want multiple smart pointers pointing at the same resource. </p>
+<div class="highlight"><pre><span></span><code><span class="c1">// allocate a Resource object and have it owned by std::shared_ptr</span>
+<span class="n">Resource</span><span class="w"> </span><span class="o">*</span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Resource</span><span class="p">;</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ptr1</span><span class="p">(</span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ptr2</span><span class="p">(</span><span class="n">ptr1</span><span class="p">);</span><span class="w"> </span><span class="c1">// use copy initialization to make another std::shared_ptr pointing to the same thing</span>
+
+<span class="w">    </span><span class="c1">// DO NOT DO IT LIKE THIS</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ptr2</span><span class="p">(</span><span class="n">res</span><span class="p">);</span><span class="w"> </span><span class="c1">// this will then kill the resource if going out of scope</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Killing one shared pointer</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// ptr2 goes out of scope here, but nothing happens</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Killing another shared pointer</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>As you can see above, it's important to create std::shared_ptr that point at the same resources from each other. </p>
+<div class="admonition rule">
+<p class="admonition-title">Rule</p>
+<p>Always make a copy of an exisiting std::shared_ptr if you need more than one std::shared_ptr pointing to the same resource</p>
+</div>
+<h4 id="stdmake_shared">std::make_shared</h4>
+<p>Like with std::make_unique, it's better to use std:make_shared. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// allocate a Resource object and have it owned by std::shared_ptr</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">ptr1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Resource</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">ptr2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ptr1</span><span class="p">;</span><span class="w"> </span><span class="c1">// create ptr2 using copy initialization of ptr1</span>
+
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Killing one shared pointer</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="c1">// ptr2 goes out of scope here, but nothing happens</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Killing another shared pointer</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="c1">// ptr1 goes out of scope here, and the allocated Resource is destroyed</span>
+</code></pre></div>
+<p>Internally, std::shared_ptr uses two pointers. One poitns at the resource bing managed, the other at a "control block" which dynamically allocated and tracks a bunch of stuff like how many instances of the shared_ptr there are. </p>
+<p>You can convert std::shared_ptr from std::unique_ptr, but you can't convert a std::stared_ptr into a std::unique_ptr. </p>
+<p>Just like std::unique_ptr you have to worry about the pointer itself being properly disposed of. And not just one, but all instances of the shared_ptr. The resource will be deallocated with the last std::shared_ptr managing the resource is destroyed. </p>
+<h1 id="circular-dependency-issues-with-stdstared_ptr-and-stdweak_ptr">Circular dependency issues with std::stared_ptr and std:weak_ptr.</h1>
+<p><strong>Circular references</strong> are a series of references where each object references the next, and the last object references back to the first, creating a loop. They do not need to be actual references, they can be pointers, unique ID's or any other means of identifying specific objects. A points at B, B points at C, C points at A. If these go out of scope like this, none of the objects will be deallocated if they are shared pointers, because there's no place to start deallocating.</p>
+<p>The same thing also happens with a std::shared_ptr referencing the object that contains it. </p>
+<p>std::weak_ptr is designed to solve this cyclical ownership problem. It is an observer, it can observe and access the same object as a std::shared_ptr, but is not considered an owner. </p>
+<p>So functionally a std::weak_ptr is the same as a std::shared_ptr, but it doesn't count as a "user" of the object. The annoying thing is to use the ptr you need to convert it to a std::shared_ptr first. </p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span><span class="c1"> // for std::shared_ptr and std::weak_ptr</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Person</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">m_name</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">weak_ptr</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_partner</span><span class="p">;</span><span class="w"> </span><span class="c1">// note: This is now a std::weak_ptr</span>
+
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">Person</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">m_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m_name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; created</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="o">~</span><span class="n">Person</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m_name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; destroyed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">partnerUp</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">p1</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">p2</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">p1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">p2</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">p1</span><span class="o">-&gt;</span><span class="n">m_partner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">p2</span><span class="o">-&gt;</span><span class="n">m_partner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p1</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">p1</span><span class="o">-&gt;</span><span class="n">m_name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; is now partnered with &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">p2</span><span class="o">-&gt;</span><span class="n">m_name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="w"> </span><span class="n">getPartner</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_partner</span><span class="p">.</span><span class="n">lock</span><span class="p">();</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="c1">// use lock() to convert weak_ptr to shared_ptr</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">getName</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_name</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">lucy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Lucy&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">ricky</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Ricky&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">partnerUp</span><span class="p">(</span><span class="n">lucy</span><span class="p">,</span><span class="w"> </span><span class="n">ricky</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">partner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ricky</span><span class="o">-&gt;</span><span class="n">getPartner</span><span class="p">();</span><span class="w"> </span><span class="c1">// get shared_ptr to Ricky&#39;s partner</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ricky</span><span class="o">-&gt;</span><span class="n">getName</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;&#39;s partner is: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">partner</span><span class="o">-&gt;</span><span class="n">getName</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../019_Templates/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Templates" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Templates
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../020_Exceptions/" class="md-footer__link md-footer__link--next" aria-label="Next: Exceptions" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Exceptions
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

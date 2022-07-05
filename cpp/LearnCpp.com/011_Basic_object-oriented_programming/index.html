@@ -1,0 +1,3228 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>Basic object-oriented programming - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#basic-object-oriented-programming" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Basic object-oriented programming
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Welcome to David's Personal information repository!
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Motion_Graphs_2002/" class="md-nav__link">
+        Motion Graphs
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Game Engine
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Game Engine" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Game Engine
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          Cherno Game Engine
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cherno Game Engine" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Cherno Game Engine
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Game%20Engine/Cherno_Game_Engine/002_Designing_our_GAME_ENGINE/" class="md-nav__link">
+        002 Designing our GAME ENGINE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Game%20Engine/Cherno_Game_Engine/008_Planning_the_Event_System/" class="md-nav__link">
+        Planning the Event System
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Motion Matching
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Motion Matching" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Motion Matching
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Motion%20Matching/Nucl.ai2015MotionMatching_TheRoadtoNextGenAnimation/" class="md-nav__link">
+        [Nucl.ai 2015] Motion Matching - The Road to Next Gen Animation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Cpp
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cpp" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Cpp
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CCrashCourseAFastPacedIntroduction/" class="md-nav__link">
+        CCrashCourseAFastPacedIntroduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_reference_links/" class="md-nav__link">
+        Useful Reference sites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" type="checkbox" id="__nav_5_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_3">
+          Cherno
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cherno" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          Cherno
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/BitwiseAndOrXorAndNotInCpp/" class="md-nav__link">
+        Bitwise AND (&), OR(|), XOR(^) and NOT (~) in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/IntroToBinaryAndBitwiseOperatorsInCpp/" class="md-nav__link">
+        Intro to Binary and Bitwise Operators in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/Precompiled_Headers_in_C%2B%2B/" class="md-nav__link">
+        Precompied Headers in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/Using_Libraries_in_C%2B%2B/" class="md-nav__link">
+        Using Libraries in C++
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4">
+          CppCon
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CppCon" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          CppCon
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/CppCon2014MikeActon-DataOrientedDesignandC%2B%2B/" class="md-nav__link">
+        CppCon 2014: Mike Acton "Data-Oriented Design and C++"
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/Cppcon2017_JohnLakos_LocalArenaMemoryAllocators_pt1/" class="md-nav__link">
+        CppCon 2017: John Lakos "Local ('Arena') Memory Allocators (part 1 of 2)"
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/Nicolai_Josuttis_The_Nightmare_of_Move_Semantics_for_Trivial_Classes/" class="md-nav__link">
+        The Nightmare of Move Semantics for Trivial Classes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_5">
+          LearnCpp.com
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LearnCpp.com" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          LearnCpp.com
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../000_Introduction/" class="md-nav__link">
+        000 Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../001_Cpp_Basics/" class="md-nav__link">
+        Statements and the structure of a program
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../002_Cpp_Basics_Functions_and_Files/" class="md-nav__link">
+        C++ Basics: Functions and Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../003_Debugging_Cpp_Programs/" class="md-nav__link">
+        Debugging C++ Programs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../004_Fundamental_Data_Types/" class="md-nav__link">
+        Fundamental Data Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../005_Operators/" class="md-nav__link">
+        Operators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../006_Object_Scope_and_Conversions/" class="md-nav__link">
+        Object Scope and Conversions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../007_Control_Flo_and_Error_Handling/" class="md-nav__link">
+        Control Flow and Error Handling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../008_Compound_types/" class="md-nav__link">
+        Compound Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../009_Arrays_Strings_Pointers_and_References/" class="md-nav__link">
+        Arrays, Strings, Pointers, and references
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../010_Functions/" class="md-nav__link">
+        Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Basic object-oriented programming
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Basic object-oriented programming
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-vs-private" class="md-nav__link">
+    Public vs. Private
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encapsulation" class="md-nav__link">
+    Encapsulation
+  </a>
+  
+    <nav class="md-nav" aria-label="Encapsulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-encapsulation" class="md-nav__link">
+    Benefits of encapsulation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    Constructors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#destructors" class="md-nav__link">
+    Destructors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-code-and-header-files" class="md-nav__link">
+    Class code and header files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#const-class-objects-and-member-functions" class="md-nav__link">
+    Const class objects and member functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-member-variables" class="md-nav__link">
+    Static member variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-member-functions" class="md-nav__link">
+    Static member functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#friend-functions-and-classes" class="md-nav__link">
+    Friend functions and classes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anonymous-objects" class="md-nav__link">
+    Anonymous objects
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timing-your-code" class="md-nav__link">
+    Timing your code
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../013_Operator_Overloading/" class="md-nav__link">
+        Operator Overloading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../016_An_Introduction_to_object_relationships/" class="md-nav__link">
+        An Introduction to object relationships
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../017_Introduction_to_inheritance/" class="md-nav__link">
+        Introduction to inheritance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../018_VirtualFunctions/" class="md-nav__link">
+        Virtual Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../019_Templates/" class="md-nav__link">
+        Templates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../020M_Move_semantics_and_smart_pointers/" class="md-nav__link">
+        Move semantics and smart pointers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../020_Exceptions/" class="md-nav__link">
+        Exceptions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../021_The_Standard_Library/" class="md-nav__link">
+        The Standard Library
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../022_std%3A%3Astring/" class="md-nav__link">
+        std::string
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../023_Input_and_output_IO/" class="md-nav__link">
+        Input and output (IO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_6">
+          ModernCmake
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="ModernCmake" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          ModernCmake
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ModernCmake/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ModernCmake/000_Introduction_to_the_basics/" class="md-nav__link">
+        Intorduction to the basics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Scott Meyers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Scott Meyers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Scott Meyers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_1" type="checkbox" id="__nav_5_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_1">
+          Effective Modern C++
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Effective Modern C++" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Effective Modern C++
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Scott%20Meyers/Effective%20Modern%20C%2B%2B/000_Introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Scott%20Meyers/Effective%20Modern%20C%2B%2B/001_Deducing_Types/" class="md-nav__link">
+        Deducing Types
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Howto
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Howto" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Howto
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../howto/build_vim_ycm_no_sudo/" class="md-nav__link">
+        How to build vim with ycm completer on centos with no sudo access
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Math
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Math" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Math
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/matrix/" class="md-nav__link">
+        Matrix Fundamentals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/vector/" class="md-nav__link">
+        Vectors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Essence of calculus
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Essence of calculus" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Essence of calculus
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_calculus/001_The_Essence_of_Calculus/" class="md-nav__link">
+        The Essence of Caculus
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Essence of linear algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Essence of linear algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Essence of linear algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/001_Vectors_what_even_are_they/" class="md-nav__link">
+        001 Vectors what even are they
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/002_Linear_combinations_span_and_basis_vectors/" class="md-nav__link">
+        Linear combinations, span, and basis vectors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/003_Linear_transformations_and_matrices/" class="md-nav__link">
+        003 Linear transformations and matrices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/004_Matrix_multiplication_as_composition/" class="md-nav__link">
+        Matrix multiplication as composition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/005_Three-dimensional_linear_transformations/" class="md-nav__link">
+        Three-dimensional linear transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/006_The_determinant/" class="md-nav__link">
+        The determinant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/007_Inverse_matrices_column_space_and_null_space/" class="md-nav__link">
+        Inverse matrices, column space and null space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/008_Nonsquare_matrices_as_transformations_between_dimensions/" class="md-nav__link">
+        Nonsquare matrices as transformations between dimensions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/009_Dot_products_and_duality/" class="md-nav__link">
+        Dot products and duality
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/010_Cross_Products/" class="md-nav__link">
+        Cross Products
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/011_Cross_Products_in_the_light_of_linear_transformations/" class="md-nav__link">
+        Cross products in the light of linear transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/012_Cramers_rule_explained_geometrically/" class="md-nav__link">
+        Cramer's rule, explained geometrically
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/013_Change_of_basis/" class="md-nav__link">
+        Change of basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/014_Eigenvectors_and_eigenvalues/" class="md-nav__link">
+        Eigenvectors and eigenvalues
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/015_Abstract_vector_spaces/" class="md-nav__link">
+        Abstract vector spaces
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          Math for Game Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Math for Game Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          Math for Game Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/001_Character_Movement/" class="md-nav__link">
+        Math for Game Developers - Character Movement ( Points and Vectors )
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/002_Character_Movement_2/" class="md-nav__link">
+        Character Movement 2 (Subtracting Vectors)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/003_Character_Movement_3/" class="md-nav__link">
+        Math for Game Developers - Character Movement 3 (Vector Length)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/004_Distance_Comparison/" class="md-nav__link">
+        Math for Game Developers - Distance Comparison
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/005_Character_Movement_4/" class="md-nav__link">
+        Math for Game Developers - Character Movement 4
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/006_Character_Movement_5/" class="md-nav__link">
+        Math for Game Developers - Character Movement 5 (Unit-Length Vectors)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/007_Character_Movement_6/" class="md-nav__link">
+        Math for Game Developers - Character Movement 6
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/008_Backstabbing_Dot_Product/" class="md-nav__link">
+        Math for Game Developers - Backstabbing (Dot Product)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/009_Jumping_and_Gravity/" class="md-nav__link">
+        Math for Game Developers - Jumping and Gravity (Time Delta, Game Loop)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/010_Mouse_Control_Euler_Angles/" class="md-nav__link">
+        Mouse Control (Euler Angles)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Tensors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tensors" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Tensors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Tensors/Kahn_IntroductionToTensors/" class="md-nav__link">
+        Introduction to Tensors
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Rendering
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Rendering" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Rendering
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1" type="checkbox" id="__nav_8_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1">
+          OpenGL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="OpenGL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          OpenGL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/05_03_2021_benchmarking/" class="md-nav__link">
+        Benchmarking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/Pipeline_Map/" class="md-nav__link">
+        Pipeline Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3" type="checkbox" id="__nav_8_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3">
+          LearnOpenGL.com
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LearnOpenGL.com" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          LearnOpenGL.com
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_1" type="checkbox" id="__nav_8_1_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_1">
+          001 Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="001 Getting Started" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          001 Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/000_Creating_a_window/" class="md-nav__link">
+        OpenGL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/001_Hello_Window/" class="md-nav__link">
+        Hello Window
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/002_HelloTriangle/" class="md-nav__link">
+        Hello Triangle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/003_Shaders/" class="md-nav__link">
+        Shaders
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/004_Textures/" class="md-nav__link">
+        Textures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/005_Transformations/" class="md-nav__link">
+        005 Transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/006_Coordinate_Systems/" class="md-nav__link">
+        Coordinate Systems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/007_Camera/" class="md-nav__link">
+        007 Camera
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_2" type="checkbox" id="__nav_8_1_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_2">
+          002 Lighting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="002 Lighting" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          002 Lighting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/001_Colors/" class="md-nav__link">
+        Colors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/009_Basic_Lighting/" class="md-nav__link">
+        Basic Lighting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/010_Materials/" class="md-nav__link">
+        Materials
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/011_LightingMaps/" class="md-nav__link">
+        Lightin Maps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/012_Light_Casters/" class="md-nav__link">
+        Light Casters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/013_Multiple_lights/" class="md-nav__link">
+        Multiple Lights
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_3" type="checkbox" id="__nav_8_1_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_3">
+          003 Model Loading
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="003 Model Loading" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          003 Model Loading
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/003_Model_Loading/Assimp/" class="md-nav__link">
+        Assimp
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/003_Model_Loading/Mesh/" class="md-nav__link">
+        Mesh
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_4" type="checkbox" id="__nav_8_1_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_4">
+          004 Advanced OpenGl
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="004 Advanced OpenGl" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          004 Advanced OpenGl
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/001_Depth_testing/" class="md-nav__link">
+        Depth testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/002_Stencil_testing/" class="md-nav__link">
+        Stencil testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/003_Blending/" class="md-nav__link">
+        Blending
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/004_Framebuffers/" class="md-nav__link">
+        Framebuffers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/005_Face_culling/" class="md-nav__link">
+        Face culling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/006_Cubemaps/" class="md-nav__link">
+        Cubemaps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/007_Advanced_Data/" class="md-nav__link">
+        Advanced Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/008_Advanced_GLSL/" class="md-nav__link">
+        Advanced GLSL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/009_Geometry_Shader/" class="md-nav__link">
+        Geometry Shader
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/010_Instancing/" class="md-nav__link">
+        Instancing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/011_AntiAliasing/" class="md-nav__link">
+        Anti Aliasing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2" type="checkbox" id="__nav_8_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2">
+          Shaders
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Shaders" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_2">
+          <span class="md-nav__icon md-icon"></span>
+          Shaders
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2_1" type="checkbox" id="__nav_8_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2_1">
+          TheArtOfCode
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="TheArtOfCode" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          TheArtOfCode
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/shaders/TheArtOfCode/ShaderToy_Tutorial_Part_2-Building_stuff_with_circles/" class="md-nav__link">
+        Building Stuff with Circles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/shaders/TheArtOfCode/Shadertoy_for_absolute_beginners/" class="md-nav__link">
+        Shadertoy for absolute beginners
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#public-vs-private" class="md-nav__link">
+    Public vs. Private
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#encapsulation" class="md-nav__link">
+    Encapsulation
+  </a>
+  
+    <nav class="md-nav" aria-label="Encapsulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#benefits-of-encapsulation" class="md-nav__link">
+    Benefits of encapsulation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constructors" class="md-nav__link">
+    Constructors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#destructors" class="md-nav__link">
+    Destructors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-code-and-header-files" class="md-nav__link">
+    Class code and header files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#const-class-objects-and-member-functions" class="md-nav__link">
+    Const class objects and member functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-member-variables" class="md-nav__link">
+    Static member variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-member-functions" class="md-nav__link">
+    Static member functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#friend-functions-and-classes" class="md-nav__link">
+    Friend functions and classes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anonymous-objects" class="md-nav__link">
+    Anonymous objects
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timing-your-code" class="md-nav__link">
+    Timing your code
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="basic-object-oriented-programming">Basic object-oriented programming</h1>
+<p>Traditional programming, programs are basically a list of instructions with the semantics defined by the user:</p>
+<div class="highlight"><pre><span></span><code><span class="n">driveTo</span><span class="p">(</span><span class="n">you</span><span class="p">,</span><span class="w"> </span><span class="n">work</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>Obects are the conceptual definitions we use to sort reality. Object have major components which defined them as different or similar to other objects. Objects also have behaviours that they can exhibit (being opened, making something hot, etc)</p>
+<div class="highlight"><pre><span></span><code><span class="n">you</span><span class="p">.</span><span class="n">driveTo</span><span class="p">(</span><span class="n">work</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>This reads more clearly and makes it clear what the subject of the instructions is (you). </p>
+<h2 id="classes">Classes</h2>
+<p><strong>Classes</strong> are similar to structs in that they hold data, but they can also hold a lot more, like functions. The class keyword defines a new user-defined class. </p>
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">DateStruct</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">year</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">month</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">day</span><span class="p">{}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">DateClass</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_year</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_month</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_day</span><span class="p">{};</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>The only significan difference is the public keyword in the class. Just like struct declarations, class delcarations do not allocate any memory. Class and struct definitions are like blueprints, they describe what the resulting object will look like, but do not actually create the object. </p>
+<p>The big benefit of classes are that they can hold functions, called <strong>member functions</strong> or <strong>methods</strong>. </p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DateClass</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_year</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_month</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_day</span><span class="p">{};</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">(){</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m_year</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;/&#39;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m_month</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;/&#39;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m_day</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="n">DateClass</span><span class="w"> </span><span class="n">today</span><span class="w"> </span><span class="p">{</span><span class="mi">2020</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">14</span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">today</span><span class="p">.</span><span class="n">m_day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">today</span><span class="p">.</span><span class="n">print</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Note that within the function you do not need to use it's namespace to access the member variables. These are called <strong>implicit objects</strong>. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Name your classes starting with a capital letter.</p>
+</div>
+<p>You can call your functions out of the order they are defined within the function. The following works</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">foo</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">x</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">y</span><span class="p">();</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">y</span><span class="p">()</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>Classes can have <strong>member types</strong> (including type aliases). You can also nest classes within other classes, though the cases for using this are rare. Structs can also have many of these associated member function in C++, but they do not clean up after themselves. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the struct keyword for data-only structures. Use the class keyword for objects that have both data and functions. </p>
+</div>
+<p>all of the elements of the standard library are also classes!</p>
+<h4 id="public-vs-private">Public vs. Private</h4>
+<p><strong>Public members</strong> are members of a struct or class that can e accessed from outisde of the struct or class. If they are not explicitely declared as public and you try to access the variables otuside of the class, the program will not compile. The variables not after the public: keyword are considered <strong>Private members</strong>. The public keyword with the : is called an <strong>access specifier</strong> - these dtermine who has access to the members that follow the specifier. There are three access specifier keywords:</p>
+<ul>
+<li>public</li>
+<li>private</li>
+<li>protected</li>
+</ul>
+<p>You can (and will) use multiple access specifiers to set the access levels of each member. The default member variable is private. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make member variables private, and member functions public, unless you have a good reason not to. </p>
+</div>
+<p>The group of public member variables are commonly referred to as the <strong>public inteface</strong>. This interface determines how we interact with the class. One interesting nuance of C++ is that every object instance has the same rights to every instance of that project. This means that if a function inside a class of object A can access variable foo, it can also access variable foo of object B. </p>
+<p>The big difference between structs vs classes here it is:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A struct default is members to public but a class to private</p>
+</div>
+<h2 id="encapsulation">Encapsulation</h2>
+<p>Why have private member variables at all? This can seem strange at first, but having less ways to interact with an object allows it to be simplified in the context of large code. It's abstraction of a concept, so you don't need to remember or know the entire inner workings of objects. This concept is referred to as <strong>encapsulation</strong> in object oriented programming, or information hiding. This way users can use the object without understanding how it is working. </p>
+<h4 id="benefits-of-encapsulation">Benefits of encapsulation</h4>
+<ul>
+<li>
+<p>Easier to use and reduction of program complexity. You can safley forget how a class is working internally, and just use the public interface. This dramatically reduces teh complexity of programs, and reduces mistakes. </p>
+</li>
+<li>
+<p>Protect your data and pervent misuse. This allows you a guarantee over your utility variables, and extends the assumptions that you can make about them. For example a variable m_length should maybe always be the length of a string. If a user sets this variable incorrectly, other parts of the class might not work. This can force users to use the public functions instead of the varialbes themselves, and allows implementation of a validation layer. This is very similar to the at() functions of std::array and std::vector!</p>
+</li>
+<li>
+<p>Encapsulated classes are easier to change. You can keep legacy functions by simply re-directing them to refactored and updated versions. </p>
+</li>
+<li>
+<p>Encapsulated classes are easier to debug. If there are less ways to use a class, it's much easier to find errors in it. </p>
+</li>
+</ul>
+<p>Depending on the class, it may or may not be appropriate to set variables directly. Note that if you are setting them directly, it's a commitment to never change that variable name. Because of this, it is common to wrap your variables in <strong>access functions</strong>, which get/set the functionality of that variable instead. There are two types of access functions: <strong>getters</strong> and <strong>setters</strong>. Getters should always return by value or const reference as "read-only" access to data. Otherwise the getter would allow the user to change the variable effectively circumventing the setter function. </p>
+<p>Some general rulse which can help decide wether to implement getter/setter functions:</p>
+<ul>
+<li>If nobody outside the class needs access to the member, don't provide access functions</li>
+<li>If access is required for the memeber, think about whether you can expose a behaviour or action instead. </li>
+<li>Consider providing only a getter. </li>
+</ul>
+<h2 id="constructors">Constructors</h2>
+<p>If all members of a class are public, we can use <strong>aggregate initialization</strong> to initialize the class with a list or uniform initialization. This stops working as soon as some variables become private. <strong>Constructors</strong> are a special kind of class member function that are called when an object is instantiated. Typically they are used to initialize class variables. The default costructor is what is called when no arguments are used when creating the class. It is called the same as the class. </p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Fraction</span><span class="p">{</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_numerator</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_denominator</span><span class="p">;</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Fraction</span><span class="p">(){</span><span class="w"></span>
+<span class="w">        </span><span class="n">m_numerator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">m_denominator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>Of course constructurs can also take inputs. These now allow the classes to be initialized with direct or list initialization:</p>
+<div class="highlight"><pre><span></span><code><span class="n">fraction</span><span class="w"> </span><span class="n">fiveThirds</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span><span class="w"></span>
+<span class="n">Fraction</span><span class="w"> </span><span class="nf">threeQuaters</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>Consider how you might keep the number of constructors down through smart defaulting of variables when you implement your constructor. If there is no constructor provided, C++ will generate a default one. You can initialize member variables as you define them when you don't have a constructor or there is no special logic in setting them. If you don't need a construct use = default;</p>
+<div class="highlight"><pre><span></span><code>class Date{
+private:
+    int m_year{ 1900 };
+    int m_month{ 1 };
+    int m_day{ 1 };
+public:
+    Date() = default;
+
+    Date(int year, int month, int day){
+        m_year = year;
+        m_month = month;
+        m_day = day;
+    }
+}
+</code></pre></div>
+<p>This is better because it's more explicit, and it guarantees that there will be an empty constructor wether there are other constructors or not. </p>
+<p>If classes are nested, the constructors of the internal classes will be called first. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Always initialize all member variables in your objects</p>
+</div>
+<p>One problem with assigning all member variables in your constructor, is that it won't work with const vars. Because of this and style in general, it's reccomended to use a <strong>member initializer list</strong> - which is different than a regular initializer list. A member initializer list is almost identical to doing direct initialization or unitform initialization. </p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Something</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_value1</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">m_value2</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">m_value3</span><span class="p">;</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Something</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value1</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">value2</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">value3</span><span class="o">=</span><span class="sc">&#39;c&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span>
+<span class="w">        </span><span class="n">m_value</span><span class="p">{</span><span class="w"> </span><span class="n">value1</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">m_value2</span><span class="p">{</span><span class="w"> </span><span class="n">value2</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">m_value3</span><span class="p">{</span><span class="w"> </span><span class="n">value3</span><span class="w"> </span><span class="p">}{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// no need for assignment here</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="err">\\</span><span class="n">Initialize</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">member</span><span class="w"> </span><span class="n">variables</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use member initializer lists to initialize your class member values instead of assignment. </p>
+</div>
+<p>Depending on how many arguments your member initializer list has you can put the whole thing on one line, two lines () and :{}, or one line for each value with commas at the end of each. </p>
+<ul>
+<li>Don't initialize member variables in such a way that they are dependent upon other member variables being initialized first. </li>
+<li>Initialize variables in the member initialization list in the same order that they are declared in your class. This isn't required but makes sense.</li>
+</ul>
+<p>In general for non-static member varialbes you should intialize them when they are defined, and possibly overwrite them with the constructor. Static members are pretty rare anyway, and if you run into them you're probably going to have some extra logic around that anyway. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Favor use of non-static member initialization to give default values for your member variables. </p>
+</div>
+<p>To avoid duplicate code we might try the following:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Foo</span><span class="p">(){</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// code  to do A</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">Foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">Foo</span><span class="p">();</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// code to do B</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Surprisingly this will not work as you expect. What's happening is that the second constructor is creating a new Foo() object, which is immediately discareded. To combat this problem we use <strong>constructor chaining</strong>, the process of which is called <strong>delegating constructors</strong>. The above problem would be fixed like this:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Foo</span><span class="p">(){</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// code to do A</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">Foo</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">Foo</span><span class="p">{}{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// code to do B</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have multiple constructors that have the same functionality, use delegating constructors to avoid duplicate code. </p>
+</div>
+<p>This is how it's generally done:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Employee</span><span class="p">{</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_id</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">m_name</span><span class="p">{};</span><span class="w"></span>
+
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Employee</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">m_id</span><span class="p">{</span><span class="n">id</span><span class="p">},</span><span class="w"> </span><span class="n">m_name</span><span class="p">{</span><span class="n">name</span><span class="p">}{</span><span class="w"></span>
+<span class="w">            </span><span class="n">init</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">Employee</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Employee</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">init</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Employee &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">m_name</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; created. </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>The only caveaut with this is that anybody can re-init your object anytime. So you might consider makint init a private member function. </p>
+<h2 id="destructors">Destructors</h2>
+<p>Similar to how a constructor is called when creating objects, a <strong>destructor</strong> is called when the object is destroyed. This is espcially usefull when cleaning up any arrays created by the object. </p>
+<ul>
+<li>The destructor must have the same name as the class preceded by a ~</li>
+<li>The destructor can not take arguments</li>
+<li>The destructor has no return type</li>
+</ul>
+<p>You can safely call member functions with the destructor, as it runs just before the object is removed. Interior classes are deconstructed first in the opposite order to how the constructors create them. </p>
+<p>RAII (Resource Acquisition Is Initialization) is a programming technique that has the constructor allocating "new" and then the destructor clearning it up. </p>
+<p>How do classes know to call their own member varialbes?</p>
+<div class="highlight"><pre><span></span><code><span class="n">simple</span><span class="p">.</span><span class="n">setId</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+<p>Is converted by the compiler to</p>
+<div class="highlight"><pre><span></span><code><span class="n">setId</span><span class="p">(</span><span class="o">&amp;</span><span class="n">simple</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>and setId likewise</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">setID</span><span class="p">(</span><span class="n">intid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="c1">// converted to</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">setID</span><span class="p">(</span><span class="n">Simple</span><span class="o">*</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">m_id</span><span class="w"> </span><span class="o">=</span><span class="n">id</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>The <strong>this pointer</strong> is a hidden const pointer that holds the address of the object the member function was called on. The compiler add this-&gt; to all class members inside of the classes. "this" always points to the object being operated on. Often people will explicitly reference "this", but I prefer the m_ prefix to member variables for better readability. </p>
+<p>If your member functions return a <em>this, you can chain them together similar to std::cout, which does that as well by returning the </em>this pointer. That way if you chain them together they will always resolve to themselves:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Calc</span><span class="p">{</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_value</span><span class="p">{};</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Calc</span><span class="o">&amp;</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">Calc</span><span class="o">&amp;</span><span class="w"> </span><span class="n">sub</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_value</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">Calc</span><span class="o">&amp;</span><span class="w"> </span><span class="n">mult</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_value</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="k">this</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">getValue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">Calc</span><span class="w"> </span><span class="n">calc</span><span class="p">{};</span><span class="w"></span>
+<span class="n">calc</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="n">sub</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="n">mult</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">calc</span><span class="p">.</span><span class="n">getvalue</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>This allows very readable compression into a single expression. </p>
+<h2 id="class-code-and-header-files">Class code and header files</h2>
+<p>As classes get longer and more complicated, it becomes distracting having the implementation code next to the defenitions. Because of this it's common to defined member functions outside of the class itself.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Date</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_year</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_month</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_day</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Date</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">day</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">SetDate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">day</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="nf">getYear</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_year</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="nf">getMonth</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_month</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="nf">getDay</span><span class="p">()</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_day</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="c1">// Date constructor</span>
+<span class="n">Date</span><span class="o">::</span><span class="n">Date</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">day</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">SetDate</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="n">day</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// Date member function</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">Date</span><span class="o">::</span><span class="n">SetDate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">day</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">m_month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">month</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">m_day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">day</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>This way of seperating the definitions of the member functions from the class makes it much easier to put the class for forward-declaration into a header file. This doesn't violoate the one-definition rule because if the header file has proper header guards, it shoulnd't be possible to include the class definition more than once in the same file. </p>
+<p>Defining member functions in the head does not violate the one-definition rule, because they are considered implicitly inline. This means it's no problem defining trivial member functions (such as getters/setters) inside the class definition itself. </p>
+<ul>
+<li>For classes used in only one file that aren't generally reusable, defien them directly in the single .cpp file they're used int. </li>
+<li>For classes used in multiple files, or intended for general reuse, define them in a .h file that has the same name as the class</li>
+<li>Trivial member functions (trivial cnostructors or destructors, acces functions, etc...) can be defined inside the class. </li>
+<li>Non-trivial member functions should be defined in a .cpp file that has the same name as the class. </li>
+<li>Default parameters for member function should be declared int he class definitions (.h) where they can be seen by whomever #includes the header.</li>
+</ul>
+<p>The examples in this course usually have the classes defined in the main .cpp file for ease of illustration, but larger code project should have everything structured into headers etc. </p>
+<p>A "header only" library is a library of .h files for your syntax comletion and illustration of the objects, and a pre-compiled binary. this makes it faster to link and recomiple, and it can be shared with many applications. It also makes it less likely that people will steal the code. </p>
+<h2 id="const-class-objects-and-member-functions">Const class objects and member functions</h2>
+<p>The guy who wrote doom says we should basically const all our functions and classes. What does this mean exactly?</p>
+<p>If you instantiate the class using the const keyword, any modification of the member variables of the object is disallowed. We're familiar with this behaviour and have already been using it. </p>
+<p>This isn't what mr. doom meant tho, he meant consting member functions. This is because consting a class makes so you can't call any of the class' non const member functions! A <strong>const member functions</strong> is a member function that guarantees it will not modify the object or call any non-const member functions. To make a function a const member function, just append the const keyword to the function prototype after the parameter list, but before the function body:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Something</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_value</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">Something</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="n">m_value</span><span class="p">{</span><span class="mi">0</span><span class="p">}</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">resetValue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">setValue</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">getValue</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="n">m_value</span><span class="p">;}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make any member function that does not modify the state of the class object const, so that it can be called by const objects. </p>
+</div>
+<p>The const keyword must be used in both the function prototype in the class defintion and on the function definition. You can overload functions for different behaviour for const and non-const versions of the class. </p>
+<h2 id="static-member-variables">Static member variables</h2>
+<p>When you instnatiate a class, each instance gets its own copy of all normal member variables. When you make a member variables static, it is the same reference across all instances of the object. Static members are not associated with class objects, they are create when the program starts and destroyed when the program ends. They can also be accessed directly without creating an instance of the class</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">something</span><span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s_value</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">Something</span><span class="o">::</span><span class="n">s_value</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="n">Something</span><span class="o">::</span><span class="n">s_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">Something</span><span class="o">::</span><span class="n">s_value</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>This can be useful for something like a unique id counter for the duration of the program...</p>
+<p>When you declare the static member variable in the function, you are informing the complier of its existence, but you still need to define it outside of the class. If the static member is a const integral type, or const enum, you can initialize it inside the class definitions. constexpr can also be initialized directly inside the class def. </p>
+<div class="highlight"><pre><span></span><code>class Whatever{
+public:
+    static const int s_value{ 4 };
+    static constexpr std::array&lt;int, 3&gt; s_array{ 1, 2, 3 };
+};
+</code></pre></div>
+<p>Static member variables can also be useful when using an internal lookup tables (a list of pre-calculated values) - this will keep that value in memory only once no matter how many isntances of the class. </p>
+<h2 id="static-member-functions">Static member functions</h2>
+<p>In order to access a private static member variable, you need a static member function. Just like the variables, they are not attached to any particular object, but to the class definition itself. You could also instantiate a member of the class and then call a function to access the variable, but that's not very clean. </p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Something</span><span class="p">{</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s_value</span><span class="p">;</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">getValue</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="n">s_value</span><span class="p">;}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">Something</span><span class="o">::</span><span class="n">s_value</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// init the variable</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">Something</span><span class="o">::</span><span class="n">getValue</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// no Something object instance required</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Because they are global in scope, static member functions have no *this pointer. This makes sense because static member function do not work on an object. </p>
+<p>Static member functions can directly access other static member functions or variables, but not non-static members. This is because the non-static members must belong to a class object, and not class object has been instantiated yet. </p>
+<p>C++ does not support static constructors. If you can, you should directly initialize your static variables. If you need to initialize your static variables with a function (which would run when the program is initialized) you can do it with a lambda function after the class declaration and call it immediately. </p>
+<h2 id="friend-functions-and-classes">Friend functions and classes</h2>
+<p>Even though you might seperate code into each of your functions, there are some cases where you might want other closely-knit functions or classes have access to your class' private members. In these situations, there are two options:</p>
+<ul>
+<li>
+<p>Have the classes only use the publicly exposed functions. The downside is that this could clutter up the ui of the classes. You should never expose members that you don't think any user should be allowed to use. </p>
+</li>
+<li>
+<p>Use friend classes and friend functions. This lets other classes and functions access a class' private members.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Accumulator</span><span class="p">{</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span><span class="w"> </span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">m_value</span><span class="p">;</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Accumulator</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">m_value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Make the reset() function a friend of this class</span>
+<span class="w">    </span><span class="k">friend</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">reset</span><span class="p">(</span><span class="n">Accumulator</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">accumulator</span><span class="p">);</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="c1">// now reset can access the private member variable</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="n">Accumulator</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">accumulatro</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">accumulator</span><span class="p">.</span><span class="n">m_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Of course if the friend function is not part of the class, you won't have a *this pointer and will need to pass a reference to the object. You can also make entire classes friends of each other. If you want to make certain member functions friends of each other, you will have to have them be defined first with forward declaration. This hassle only happens if you are trying to define more than one class in a file, which wouldn't happen that often anyway. </p>
+<h2 id="anonymous-objects">Anonymous objects</h2>
+<p>Anonymous objects are objects that are never stored in a variable. Example:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span><span class="w"> </span><span class="c1">// sum is a placeholder</span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="c1">// anonymous object is created</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>All anonymous objects have "expression scope" - they are created, evaluated, and destroyed in a single expression. </p>
+<p>You can manually create anonymous objects by instancing objects and just ommitting the variable name</p>
+<div class="highlight"><pre><span></span><code><span class="n">Cents</span><span class="w"> </span><span class="n">cents</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">Cents</span><span class="p">{</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">//anonymous</span>
+</code></pre></div>
+<p>This is just really useful for ommiting temp variables and making the code more concice. </p>
+<h2 id="timing-your-code">Timing your code</h2>
+<p>C++ comes with chrono, which is a bit of an archic timing functionality. We can wrap it up with a class like this:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;chrono&gt;</span><span class="cp"></span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Timer</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Type aliases to make accessing nested type easier</span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="kt">clock_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="n">second_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">ratio</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">time_point</span><span class="o">&lt;</span><span class="kt">clock_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_beg</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">Timer</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">m_beg</span><span class="p">(</span><span class="kt">clock_t</span><span class="o">::</span><span class="n">now</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">reset</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">m_beg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">clock_t</span><span class="o">::</span><span class="n">now</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">elapsed</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">second_t</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">clock_t</span><span class="o">::</span><span class="n">now</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">m_beg</span><span class="p">).</span><span class="n">count</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Timer</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Code to time goes here</span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Time elapsed: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">elapsed</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; seconds</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Note that when benchmarking your code you should be using release builds only. Debug builds can be less performant in different ways than release builds. Always measure things at least 3 times to account for background processes and other things that might be effecting performance. Also note that these results will only be valid for your machines specific architecture. </p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../010_Functions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Functions" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Functions
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../013_Operator_Overloading/" class="md-footer__link md-footer__link--next" aria-label="Next: Operator Overloading" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Operator Overloading
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

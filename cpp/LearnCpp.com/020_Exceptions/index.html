@@ -1,0 +1,2990 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>Exceptions - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#exceptions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Exceptions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Welcome to David's Personal information repository!
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Motion_Graphs_2002/" class="md-nav__link">
+        Motion Graphs
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Game Engine
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Game Engine" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Game Engine
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          Cherno Game Engine
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cherno Game Engine" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Cherno Game Engine
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Game%20Engine/Cherno_Game_Engine/002_Designing_our_GAME_ENGINE/" class="md-nav__link">
+        002 Designing our GAME ENGINE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Game%20Engine/Cherno_Game_Engine/008_Planning_the_Event_System/" class="md-nav__link">
+        Planning the Event System
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Motion Matching
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Motion Matching" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Motion Matching
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Motion%20Matching/Nucl.ai2015MotionMatching_TheRoadtoNextGenAnimation/" class="md-nav__link">
+        [Nucl.ai 2015] Motion Matching - The Road to Next Gen Animation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Cpp
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cpp" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Cpp
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CCrashCourseAFastPacedIntroduction/" class="md-nav__link">
+        CCrashCourseAFastPacedIntroduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_reference_links/" class="md-nav__link">
+        Useful Reference sites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" type="checkbox" id="__nav_5_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_3">
+          Cherno
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cherno" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          Cherno
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/BitwiseAndOrXorAndNotInCpp/" class="md-nav__link">
+        Bitwise AND (&), OR(|), XOR(^) and NOT (~) in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/IntroToBinaryAndBitwiseOperatorsInCpp/" class="md-nav__link">
+        Intro to Binary and Bitwise Operators in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/Precompiled_Headers_in_C%2B%2B/" class="md-nav__link">
+        Precompied Headers in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/Using_Libraries_in_C%2B%2B/" class="md-nav__link">
+        Using Libraries in C++
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4">
+          CppCon
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CppCon" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          CppCon
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/CppCon2014MikeActon-DataOrientedDesignandC%2B%2B/" class="md-nav__link">
+        CppCon 2014: Mike Acton "Data-Oriented Design and C++"
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/Cppcon2017_JohnLakos_LocalArenaMemoryAllocators_pt1/" class="md-nav__link">
+        CppCon 2017: John Lakos "Local ('Arena') Memory Allocators (part 1 of 2)"
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/Nicolai_Josuttis_The_Nightmare_of_Move_Semantics_for_Trivial_Classes/" class="md-nav__link">
+        The Nightmare of Move Semantics for Trivial Classes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_5">
+          LearnCpp.com
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LearnCpp.com" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          LearnCpp.com
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../000_Introduction/" class="md-nav__link">
+        000 Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../001_Cpp_Basics/" class="md-nav__link">
+        Statements and the structure of a program
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../002_Cpp_Basics_Functions_and_Files/" class="md-nav__link">
+        C++ Basics: Functions and Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../003_Debugging_Cpp_Programs/" class="md-nav__link">
+        Debugging C++ Programs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../004_Fundamental_Data_Types/" class="md-nav__link">
+        Fundamental Data Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../005_Operators/" class="md-nav__link">
+        Operators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../006_Object_Scope_and_Conversions/" class="md-nav__link">
+        Object Scope and Conversions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../007_Control_Flo_and_Error_Handling/" class="md-nav__link">
+        Control Flow and Error Handling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../008_Compound_types/" class="md-nav__link">
+        Compound Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../009_Arrays_Strings_Pointers_and_References/" class="md-nav__link">
+        Arrays, Strings, Pointers, and references
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../010_Functions/" class="md-nav__link">
+        Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../011_Basic_object-oriented_programming/" class="md-nav__link">
+        Basic object-oriented programming
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../013_Operator_Overloading/" class="md-nav__link">
+        Operator Overloading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../016_An_Introduction_to_object_relationships/" class="md-nav__link">
+        An Introduction to object relationships
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../017_Introduction_to_inheritance/" class="md-nav__link">
+        Introduction to inheritance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../018_VirtualFunctions/" class="md-nav__link">
+        Virtual Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../019_Templates/" class="md-nav__link">
+        Templates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../020M_Move_semantics_and_smart_pointers/" class="md-nav__link">
+        Move semantics and smart pointers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Exceptions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Exceptions
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#throw" class="md-nav__link">
+    Throw
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try" class="md-nav__link">
+    Try
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#catch" class="md-nav__link">
+    Catch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exceptions-with-functions" class="md-nav__link">
+    Exceptions with Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uncaught-exceptions-and-catch-all-handlers" class="md-nav__link">
+    Uncaught exceptions and catch-all handlers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-classes-and-inheritance" class="md-nav__link">
+    Exception, classes and inheritance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#re-throwing-exceptions" class="md-nav__link">
+    Re-throwing exceptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-try-blocks" class="md-nav__link">
+    Function Try blocks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-dangers-and-downsides" class="md-nav__link">
+    Exception dangers and downsides
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-specifications-and-noexcept" class="md-nav__link">
+    Exception specifications and noexcept.
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../021_The_Standard_Library/" class="md-nav__link">
+        The Standard Library
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../022_std%3A%3Astring/" class="md-nav__link">
+        std::string
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../023_Input_and_output_IO/" class="md-nav__link">
+        Input and output (IO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_6">
+          ModernCmake
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="ModernCmake" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          ModernCmake
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ModernCmake/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ModernCmake/000_Introduction_to_the_basics/" class="md-nav__link">
+        Intorduction to the basics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Scott Meyers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Scott Meyers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Scott Meyers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_1" type="checkbox" id="__nav_5_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_1">
+          Effective Modern C++
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Effective Modern C++" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Effective Modern C++
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Scott%20Meyers/Effective%20Modern%20C%2B%2B/000_Introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Scott%20Meyers/Effective%20Modern%20C%2B%2B/001_Deducing_Types/" class="md-nav__link">
+        Deducing Types
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Howto
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Howto" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Howto
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../howto/build_vim_ycm_no_sudo/" class="md-nav__link">
+        How to build vim with ycm completer on centos with no sudo access
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Math
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Math" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Math
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/matrix/" class="md-nav__link">
+        Matrix Fundamentals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/vector/" class="md-nav__link">
+        Vectors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Essence of calculus
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Essence of calculus" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Essence of calculus
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_calculus/001_The_Essence_of_Calculus/" class="md-nav__link">
+        The Essence of Caculus
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Essence of linear algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Essence of linear algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Essence of linear algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/001_Vectors_what_even_are_they/" class="md-nav__link">
+        001 Vectors what even are they
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/002_Linear_combinations_span_and_basis_vectors/" class="md-nav__link">
+        Linear combinations, span, and basis vectors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/003_Linear_transformations_and_matrices/" class="md-nav__link">
+        003 Linear transformations and matrices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/004_Matrix_multiplication_as_composition/" class="md-nav__link">
+        Matrix multiplication as composition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/005_Three-dimensional_linear_transformations/" class="md-nav__link">
+        Three-dimensional linear transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/006_The_determinant/" class="md-nav__link">
+        The determinant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/007_Inverse_matrices_column_space_and_null_space/" class="md-nav__link">
+        Inverse matrices, column space and null space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/008_Nonsquare_matrices_as_transformations_between_dimensions/" class="md-nav__link">
+        Nonsquare matrices as transformations between dimensions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/009_Dot_products_and_duality/" class="md-nav__link">
+        Dot products and duality
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/010_Cross_Products/" class="md-nav__link">
+        Cross Products
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/011_Cross_Products_in_the_light_of_linear_transformations/" class="md-nav__link">
+        Cross products in the light of linear transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/012_Cramers_rule_explained_geometrically/" class="md-nav__link">
+        Cramer's rule, explained geometrically
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/013_Change_of_basis/" class="md-nav__link">
+        Change of basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/014_Eigenvectors_and_eigenvalues/" class="md-nav__link">
+        Eigenvectors and eigenvalues
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/015_Abstract_vector_spaces/" class="md-nav__link">
+        Abstract vector spaces
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          Math for Game Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Math for Game Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          Math for Game Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/001_Character_Movement/" class="md-nav__link">
+        Math for Game Developers - Character Movement ( Points and Vectors )
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/002_Character_Movement_2/" class="md-nav__link">
+        Character Movement 2 (Subtracting Vectors)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/003_Character_Movement_3/" class="md-nav__link">
+        Math for Game Developers - Character Movement 3 (Vector Length)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/004_Distance_Comparison/" class="md-nav__link">
+        Math for Game Developers - Distance Comparison
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/005_Character_Movement_4/" class="md-nav__link">
+        Math for Game Developers - Character Movement 4
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/006_Character_Movement_5/" class="md-nav__link">
+        Math for Game Developers - Character Movement 5 (Unit-Length Vectors)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/007_Character_Movement_6/" class="md-nav__link">
+        Math for Game Developers - Character Movement 6
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/008_Backstabbing_Dot_Product/" class="md-nav__link">
+        Math for Game Developers - Backstabbing (Dot Product)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/009_Jumping_and_Gravity/" class="md-nav__link">
+        Math for Game Developers - Jumping and Gravity (Time Delta, Game Loop)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/010_Mouse_Control_Euler_Angles/" class="md-nav__link">
+        Mouse Control (Euler Angles)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Tensors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tensors" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Tensors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Tensors/Kahn_IntroductionToTensors/" class="md-nav__link">
+        Introduction to Tensors
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Rendering
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Rendering" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Rendering
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1" type="checkbox" id="__nav_8_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1">
+          OpenGL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="OpenGL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          OpenGL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/05_03_2021_benchmarking/" class="md-nav__link">
+        Benchmarking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/Pipeline_Map/" class="md-nav__link">
+        Pipeline Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3" type="checkbox" id="__nav_8_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3">
+          LearnOpenGL.com
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LearnOpenGL.com" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          LearnOpenGL.com
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_1" type="checkbox" id="__nav_8_1_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_1">
+          001 Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="001 Getting Started" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          001 Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/000_Creating_a_window/" class="md-nav__link">
+        OpenGL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/001_Hello_Window/" class="md-nav__link">
+        Hello Window
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/002_HelloTriangle/" class="md-nav__link">
+        Hello Triangle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/003_Shaders/" class="md-nav__link">
+        Shaders
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/004_Textures/" class="md-nav__link">
+        Textures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/005_Transformations/" class="md-nav__link">
+        005 Transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/006_Coordinate_Systems/" class="md-nav__link">
+        Coordinate Systems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/007_Camera/" class="md-nav__link">
+        007 Camera
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_2" type="checkbox" id="__nav_8_1_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_2">
+          002 Lighting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="002 Lighting" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          002 Lighting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/001_Colors/" class="md-nav__link">
+        Colors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/009_Basic_Lighting/" class="md-nav__link">
+        Basic Lighting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/010_Materials/" class="md-nav__link">
+        Materials
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/011_LightingMaps/" class="md-nav__link">
+        Lightin Maps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/012_Light_Casters/" class="md-nav__link">
+        Light Casters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/013_Multiple_lights/" class="md-nav__link">
+        Multiple Lights
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_3" type="checkbox" id="__nav_8_1_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_3">
+          003 Model Loading
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="003 Model Loading" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          003 Model Loading
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/003_Model_Loading/Assimp/" class="md-nav__link">
+        Assimp
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/003_Model_Loading/Mesh/" class="md-nav__link">
+        Mesh
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_4" type="checkbox" id="__nav_8_1_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_4">
+          004 Advanced OpenGl
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="004 Advanced OpenGl" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          004 Advanced OpenGl
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/001_Depth_testing/" class="md-nav__link">
+        Depth testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/002_Stencil_testing/" class="md-nav__link">
+        Stencil testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/003_Blending/" class="md-nav__link">
+        Blending
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/004_Framebuffers/" class="md-nav__link">
+        Framebuffers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/005_Face_culling/" class="md-nav__link">
+        Face culling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/006_Cubemaps/" class="md-nav__link">
+        Cubemaps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/007_Advanced_Data/" class="md-nav__link">
+        Advanced Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/008_Advanced_GLSL/" class="md-nav__link">
+        Advanced GLSL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/009_Geometry_Shader/" class="md-nav__link">
+        Geometry Shader
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/010_Instancing/" class="md-nav__link">
+        Instancing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/011_AntiAliasing/" class="md-nav__link">
+        Anti Aliasing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2" type="checkbox" id="__nav_8_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2">
+          Shaders
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Shaders" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_2">
+          <span class="md-nav__icon md-icon"></span>
+          Shaders
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2_1" type="checkbox" id="__nav_8_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2_1">
+          TheArtOfCode
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="TheArtOfCode" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          TheArtOfCode
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/shaders/TheArtOfCode/ShaderToy_Tutorial_Part_2-Building_stuff_with_circles/" class="md-nav__link">
+        Building Stuff with Circles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/shaders/TheArtOfCode/Shadertoy_for_absolute_beginners/" class="md-nav__link">
+        Shadertoy for absolute beginners
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#throw" class="md-nav__link">
+    Throw
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try" class="md-nav__link">
+    Try
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#catch" class="md-nav__link">
+    Catch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exceptions-with-functions" class="md-nav__link">
+    Exceptions with Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uncaught-exceptions-and-catch-all-handlers" class="md-nav__link">
+    Uncaught exceptions and catch-all handlers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-classes-and-inheritance" class="md-nav__link">
+    Exception, classes and inheritance
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#re-throwing-exceptions" class="md-nav__link">
+    Re-throwing exceptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#function-try-blocks" class="md-nav__link">
+    Function Try blocks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-dangers-and-downsides" class="md-nav__link">
+    Exception dangers and downsides
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exception-specifications-and-noexcept" class="md-nav__link">
+    Exception specifications and noexcept.
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="exceptions">Exceptions</h1>
+<p>If a function fails, a common practice is to use the return code to determine if it did so. This could be a bool or commonly -1 if it failed for int return types. This has a few drawbacks - mainly that it's cryptic, and that the return type is not always something that you can set to explicitly false. In some functions -1 is a valid return type, so the user might be unsure if this is an error or expected behaviour. </p>
+<p>What you can do is to put the result of the function into a reference type like so:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">double</span><span class="w"> </span><span class="nf">divide</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">&amp;</span><span class="n">success</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">y</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<p>This still needs to be checked constantly, and the user of the function needs to remember to check it constantly. This is also not going to work inside of object constructors. What if something goes <em>catastrophically</em> wrong in a cosntructor? </p>
+<p>Enter: Exceptions. Exception handling provides a mechanism do decuople handling of errors or other exceptional circumstances from the typical control flow of your code. There are three keywords that are used to implement exceptions in cpp. </p>
+<h3 id="throw">Throw</h3>
+<p>A <strong>throw statement</strong> is used to signal that an exception has occurred. This is also called <strong>raising</strong> an exception. You do this with the throw keywoard, followed by a value of any data type you wish to use to signal that an error has occured. </p>
+<div class="highlight"><pre><span></span><code><span class="k">throw</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="c1">// throw a literal integer value</span>
+<span class="k">throw</span><span class="w"> </span><span class="n">ENUM_INVALID_INDEX</span><span class="p">;</span><span class="w"> </span><span class="c1">// throw an enum value</span>
+<span class="k">throw</span><span class="w"> </span><span class="s">&quot;Can not take square root of negative number&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// throw a literal C-style (const char*) string</span>
+<span class="k">throw</span><span class="w"> </span><span class="n">dX</span><span class="p">;</span><span class="w"> </span><span class="c1">// throw a double variable that was previously defined</span>
+<span class="k">throw</span><span class="w"> </span><span class="n">MyException</span><span class="p">(</span><span class="s">&quot;Fatal Error&quot;</span><span class="p">);</span><span class="w"> </span><span class="c1">// Throw an object of class MyException</span>
+</code></pre></div>
+<h3 id="try">Try</h3>
+<p>How do you <em>catch</em> exceptions? Once they are thrown by a function, do you always want your program to stop? The <strong>try block</strong> runs statements that could potentially generate exceptions and catches them without necessarily stopping the program. </p>
+<h3 id="catch">Catch</h3>
+<p>After the exceptions have been gathered by the try block, they are handled by the <strong>catch block</strong>. Try and catch blocks work together. A try block detects the exceptions, and the catch block handles them. Here's an example of them all working together:</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Statements that may throw exceptions you want to handle go here</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="c1">// here&#39;s a trivial example</span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Any exceptions of type int thrown within the above try block get sent here</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;We caught an int exception with value: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="w"> </span><span class="c1">// no variable name since we don&#39;t use the exception itself in the catch block below</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Any exceptions of type double thrown within the above try block get sent here</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;We caught an exception of type double&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="c1">// catch classes by const reference</span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Any exceptions of type std::string thrown within the above try block get sent here</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;We caught an exception of type std::string&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Continuing on our merry way</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>After an exception is thrown in a try block, the rest of the block is ignored and the program jumps straight to the catch block. Typically if an exception is routed to a catch block, it's considered handled. These are three common things that catch blocks do:</p>
+<ul>
+<li>print an error (to console or log)</li>
+<li>return an error code back to caller</li>
+<li>throw another exception for the next catch block to handle</li>
+</ul>
+<h2 id="exceptions-with-functions">Exceptions with Functions</h2>
+<p>Exceptions thrown within functions get passed up the stack until they are detected in a try block. The process of tracing them up the stack is called <strong>unwinding the stack</strong>. The interesting part is that you can throw exceptions in a valid way in functions without the code being directly in a try block. This is helpful because different applications my want to handle the exception in different ways. </p>
+<p>Note that program execution is suspended all the way up the stack until the exception is caught. This is very great for skipping out on code dependant on a certain variable being a certain way. </p>
+<h2 id="uncaught-exceptions-and-catch-all-handlers">Uncaught exceptions and catch-all handlers</h2>
+<p>If an exception is not caught your program will terminate.... often unexpectedly. This is something you want to avoid. To deal with unknown exceptions completely crashing your program, you can use a <strong>catch-all handler</strong>. It's done, quit simple, by using ellipsis. </p>
+<div class="highlight"><pre><span></span><code><span class="k">catch</span><span class="w"> </span><span class="p">(...){</span><span class="c1">// catch all handler</span>
+<span class="w">    </span><span class="nl">std</span><span class="p">:</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;We caught an exception of undetermined type</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span>
+</code></pre></div>
+<p>Often this is left empty to ignore all uncaught exceptions. It will keep the stack unwinding to the top of your program, but not do any specific error handling. This is a common use of the catch all handler:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">try</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">runGame</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">catch</span><span class="p">(...)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Abnormal termination</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">saveState</span><span class="p">();</span><span class="w"> </span><span class="c1">// Save user&#39;s game</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h2 id="exception-classes-and-inheritance">Exception, classes and inheritance</h2>
+<p>Because the type of exception can be ambiguous, it makes sense to throw <strong>exception classes</strong>. These are a standardized class that you can assume will be thrown. Any class can be an exception class, but it makes sense to have them store an error string like so :</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ArrayException</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">m_error</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">ArrayException</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">error</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">m_error</span><span class="p">{</span><span class="n">error</span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">getError</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">m_error</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Exception handlers should catch class exception object by reference instead of by value. This prevents the compiler from making a copy of the exception.</p>
+</div>
+<p>Exception handler will not only catch classes of a type, but also all classes derived from that type. Remember to catch the exceptions in the reverse order or class inheritance if you do so. </p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="n">Derived</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Base</span><span class="w"> </span><span class="o">&amp;</span><span class="n">base</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;caught Base&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Derived</span><span class="w"> </span><span class="o">&amp;</span><span class="n">derived</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;caught Derived&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>The above will print "caught Base". To get it to catch derived properly the derived catch must be before the base catch. </p>
+<p>Writing your own exception class kind of just adds more exception standards, so usually you will be using or inheriting from std::exception. It's a small class designed to serve as a base to any exception thrown by the standard library. Thanks to std::exception, we can set up an exception handler to catch all exceptions in the standard library!</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;exception&gt;</span><span class="c1"> // for std::exception</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;limits&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span><span class="c1"> // for this example</span><span class="cp"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">try</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Your code using standard library goes here</span>
+<span class="w">        </span><span class="c1">// We&#39;ll trigger one of these exceptions intentionally for the sake of the example</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">s</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="o">&gt;::</span><span class="n">max</span><span class="p">());</span><span class="w"> </span><span class="c1">// will trigger a std::length_error or allocation exception</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// This handler will catch std::exception and all the derived exceptions too</span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">exception</span><span class="o">&amp;</span><span class="w"> </span><span class="n">exception</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Standard exception: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">exception</span><span class="p">.</span><span class="n">what</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Interesting to note is that std::exception has a what() function that returns a C-style string description of the exception. If subclassing, this is what you want to overwrite to add the description for your own exception. </p>
+<p>Using inheritance we can use specific handlers to target specific derived exception classes. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Nothing throws a std::exception directly, and neighter should you. A list of standard exceptions can be found <a href="http://en.cppreference.com/w/cpp/error/exception">here</a></p>
+</div>
+<h2 id="re-throwing-exceptions">Re-throwing exceptions</h2>
+<p>Sometimes you want to pass an exception up the stack. You can do this by throwing another exception in your catch block. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">getIntValueFromDatabase</span><span class="p">(</span><span class="n">Database</span><span class="w"> </span><span class="o">*</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">table</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">key</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">d</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">try</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">d</span><span class="o">-&gt;</span><span class="n">getIntValue</span><span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">);</span><span class="w"> </span><span class="c1">// throws int exception on failure</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">exception</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Write an error to some global logfile</span>
+<span class="w">        </span><span class="n">g_log</span><span class="p">.</span><span class="n">logError</span><span class="p">(</span><span class="s">&quot;doSomethingImportant failed&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="sc">&#39;q&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// throw char exception &#39;q&#39; up the stack to be handled by caller of getIntValueFromDatabase()</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>What you should not do is to re-throw the same exception like this. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="nf">getIntValueFromDatabase</span><span class="p">(</span><span class="n">Database</span><span class="w"> </span><span class="o">*</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">table</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">key</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">d</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">try</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">d</span><span class="o">-&gt;</span><span class="n">getIntValue</span><span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="w"> </span><span class="n">key</span><span class="p">);</span><span class="w"> </span><span class="c1">// throws Derived exception on failure</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Base</span><span class="w"> </span><span class="o">&amp;</span><span class="n">exception</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Write an error to some global logfile</span>
+<span class="w">        </span><span class="n">g_log</span><span class="p">.</span><span class="n">logError</span><span class="p">(</span><span class="s">&quot;doSomethingImportant failed&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="n">exception</span><span class="p">;</span><span class="w"> </span><span class="c1">// Danger: this throws a Base object, not a Derived object</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>This is slicing the derived object that's being returned! The right way to re-throw the exception is to use the throw keyword again. </p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="n">Derived</span><span class="p">{};</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Base</span><span class="o">&amp;</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Caught Base b, which is actually a &quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">b</span><span class="p">.</span><span class="n">print</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">throw</span><span class="p">;</span><span class="w"> </span><span class="c1">// note: We&#39;re now rethrowing the object here</span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h2 id="function-try-blocks">Function Try blocks</h2>
+<p>What if you want to catch an expression within a constructor? For this you need a <strong>function try block</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">A</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">B</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1">// note addition of try keyword here</span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(...)</span><span class="w"> </span><span class="c1">// note this is at same level of indentation as the function itself</span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="c1">// Exceptions from member initializer list or constructor body are caught here</span>
+
+<span class="w">                </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Exception caught</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">                </span><span class="c1">// If an exception isn&#39;t explicitly thrown here, the current exception will be implicitly rethrown</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>These try blocks can catch both base and current class exceptions. Don't try to use these to clean up resources, after the constructor has failed the object is considered undefined behaviour. </p>
+<h2 id="exception-dangers-and-downsides">Exception dangers and downsides</h2>
+<p>One of the biggest problems with exceptions is manually allocated data. In this case the catch needs to clean up the data or it will leak. What are some ways to do this for pointers that would otherwise go out of scope? One way is to declare the pointer outside of the try block. Another is to use a <strong>std::unique_ptr</strong>. This will automatically deallocate the pointer when going out of scope. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Exceptions should <em>never</em> be thrown in destructors. 
+Write a message to a log file instead.</p>
+</div>
+<p>When should you use exceptions?
+    * The error being handles is likely to occur only infrequently (performance consideration)
+    * The error is serious and execution could not continue otherwise
+    * The error cannot be handled at the place where it occurs. 
+    * There isn't a good alternative way to return an error code back to the caller</p>
+<h2 id="exception-specifications-and-noexcept">Exception specifications and noexcept.</h2>
+<p>How can you tell if a function is going to be throwing an exception or not?
+ All functions in C++ are classified as either <strong>non-throwing</strong> or <strong>potentially throwing</strong>. Exception specifications are a language mechanism that was originally designed to document what kind of exceptions a function might throw as a part of a function specification. If you want to specifically defined your function as not throwing exceptions, you use the <strong>noexcept specifier</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">dosomething</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="p">;</span><span class="c1">// this function is non-throwing</span>
+</code></pre></div>
+<p>The following functions are non-throwing by default</p>
+<ul>
+<li>default constructors</li>
+<li>copy constructors</li>
+<li>move constructors</li>
+<li>destructors</li>
+<li>copy assignment operators </li>
+<li>move assignment operators</li>
+</ul>
+<p>You should still tag them as noexcept if you want to specify them as non-throwing, because they might be calling other functions which might be throwing. You can know if a function is throwing or not by using noexcept.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="k">throw</span><span class="w"> </span><span class="mi">-1</span><span class="p">;}</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">boo</span><span class="p">()</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">goo</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{};</span><span class="w"></span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">S</span><span class="p">{};</span><span class="w"></span>
+
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">b1</span><span class="p">{</span><span class="w"> </span><span class="k">noexcept</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// true; ints are non-throwing</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">b2</span><span class="p">{</span><span class="w"> </span><span class="k">noexcept</span><span class="p">(</span><span class="n">foo</span><span class="p">())</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// false; foo() throws an exception</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">b3</span><span class="p">{</span><span class="w"> </span><span class="k">noexcept</span><span class="p">(</span><span class="n">boo</span><span class="p">())</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// false; boo() is implicitly noexcept(false)</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">b4</span><span class="p">{</span><span class="w"> </span><span class="k">noexcept</span><span class="p">(</span><span class="n">goo</span><span class="p">())</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// true; goo() is explicitly noexcept(true)</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">b5</span><span class="p">{</span><span class="w"> </span><span class="k">noexcept</span><span class="p">(</span><span class="n">S</span><span class="p">{})</span><span class="w"> </span><span class="p">};</span><span class="w">   </span><span class="c1">// true; a struct&#39;s default constructor is noexcept by default</span>
+</code></pre></div>
+<p>Exception safety guarantees are contractual guidelines about how functions will behave in the event an exception occurs. There are four levels of safety. </p>
+<ul>
+<li>No guarantee -- anything could happen</li>
+<li>Basic guarantee -- if an exception is thrown, no memory will be leaked and the object is still usable, but the program may be left in a modified state.</li>
+<li>Strong guarantee -- If an exception is thrown, no memory will be leaked and the program state will not be changed. This means the function must either completely succeed or have no side effects if it fails. This is easy if the failure happens before anything is modified in the first place, but can also be achieved by rolling back any changes so the program is return to the pre-failure state. </li>
+<li>No throw/ No fail -- the function will always succeed or fail without throwing an exception. </li>
+</ul>
+<p>For example, all destructors should have a no-throw guarantee, as well as all functions that destructors might call. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the noexcep specifier in specific cases where you want to express a no-fail or no-throw guarantee. 
+Better to err on the side of caution and not mark it with noexcept. </p>
+</div>
+<p>Why should functions be marked as non-throwing?</p>
+<ul>
+<li>They can safely be used in destructors and other dangerous contexts</li>
+<li>They can enable the compiler to perform some optimizations that would not otherwise be available. </li>
+<li>Some libraries are optimized for noexcept. </li>
+</ul>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../020M_Move_semantics_and_smart_pointers/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Move semantics and smart pointers" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Move semantics and smart pointers
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../021_The_Standard_Library/" class="md-footer__link md-footer__link--next" aria-label="Next: The Standard Library" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              The Standard Library
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3104 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.11">
+    
+    
+      
+        <title>Arrays, Strings, Pointers, and references - My Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8c5ef100.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.9647289d.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#arrays-strings-pointers-and-references" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Docs" class="md-header__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arrays, Strings, Pointers, and references
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Docs" class="md-nav__button md-logo" aria-label="My Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Welcome to David's Personal information repository!
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Motion_Graphs_2002/" class="md-nav__link">
+        Motion Graphs
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Game Engine
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Game Engine" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Game Engine
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          Cherno Game Engine
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cherno Game Engine" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Cherno Game Engine
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Game%20Engine/Cherno_Game_Engine/002_Designing_our_GAME_ENGINE/" class="md-nav__link">
+        002 Designing our GAME ENGINE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Game%20Engine/Cherno_Game_Engine/008_Planning_the_Event_System/" class="md-nav__link">
+        Planning the Event System
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Motion Matching
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Motion Matching" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Motion Matching
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Motion%20Matching/Nucl.ai2015MotionMatching_TheRoadtoNextGenAnimation/" class="md-nav__link">
+        [Nucl.ai 2015] Motion Matching - The Road to Next Gen Animation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Cpp
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cpp" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Cpp
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CCrashCourseAFastPacedIntroduction/" class="md-nav__link">
+        CCrashCourseAFastPacedIntroduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpp_reference_links/" class="md-nav__link">
+        Useful Reference sites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_3" type="checkbox" id="__nav_5_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_3">
+          Cherno
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cherno" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          Cherno
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/BitwiseAndOrXorAndNotInCpp/" class="md-nav__link">
+        Bitwise AND (&), OR(|), XOR(^) and NOT (~) in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/IntroToBinaryAndBitwiseOperatorsInCpp/" class="md-nav__link">
+        Intro to Binary and Bitwise Operators in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/Precompiled_Headers_in_C%2B%2B/" class="md-nav__link">
+        Precompied Headers in C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cherno/Using_Libraries_in_C%2B%2B/" class="md-nav__link">
+        Using Libraries in C++
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_4">
+          CppCon
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CppCon" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          CppCon
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/CppCon2014MikeActon-DataOrientedDesignandC%2B%2B/" class="md-nav__link">
+        CppCon 2014: Mike Acton "Data-Oriented Design and C++"
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/Cppcon2017_JohnLakos_LocalArenaMemoryAllocators_pt1/" class="md-nav__link">
+        CppCon 2017: John Lakos "Local ('Arena') Memory Allocators (part 1 of 2)"
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CppCon/Nicolai_Josuttis_The_Nightmare_of_Move_Semantics_for_Trivial_Classes/" class="md-nav__link">
+        The Nightmare of Move Semantics for Trivial Classes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_5">
+          LearnCpp.com
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LearnCpp.com" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          LearnCpp.com
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../000_Introduction/" class="md-nav__link">
+        000 Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../001_Cpp_Basics/" class="md-nav__link">
+        Statements and the structure of a program
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../002_Cpp_Basics_Functions_and_Files/" class="md-nav__link">
+        C++ Basics: Functions and Files
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../003_Debugging_Cpp_Programs/" class="md-nav__link">
+        Debugging C++ Programs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../004_Fundamental_Data_Types/" class="md-nav__link">
+        Fundamental Data Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../005_Operators/" class="md-nav__link">
+        Operators
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../006_Object_Scope_and_Conversions/" class="md-nav__link">
+        Object Scope and Conversions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../007_Control_Flo_and_Error_Handling/" class="md-nav__link">
+        Control Flow and Error Handling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../008_Compound_types/" class="md-nav__link">
+        Compound Types
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Arrays, Strings, Pointers, and references
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Arrays, Strings, Pointers, and references
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#c-style-strings" class="md-nav__link">
+    C-style strings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-view" class="md-nav__link">
+    String View
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pointers" class="md-nav__link">
+    Pointers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-memory-allocation-with-new-and-delete" class="md-nav__link">
+    Dynamic Memory Allocation with new and delete
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-variables" class="md-nav__link">
+    Reference Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#for-each-loops" class="md-nav__link">
+    For-each loops
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#void-pointers" class="md-nav__link">
+    Void Pointers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xtra-juice" class="md-nav__link">
+    Xtra juice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdarray" class="md-nav__link">
+    std::array
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdvector" class="md-nav__link">
+    std::vector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterators" class="md-nav__link">
+    Iterators
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standard-library-algorithms" class="md-nav__link">
+    Standard Library algorithms
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../010_Functions/" class="md-nav__link">
+        Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../011_Basic_object-oriented_programming/" class="md-nav__link">
+        Basic object-oriented programming
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../013_Operator_Overloading/" class="md-nav__link">
+        Operator Overloading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../016_An_Introduction_to_object_relationships/" class="md-nav__link">
+        An Introduction to object relationships
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../017_Introduction_to_inheritance/" class="md-nav__link">
+        Introduction to inheritance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../018_VirtualFunctions/" class="md-nav__link">
+        Virtual Functions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../019_Templates/" class="md-nav__link">
+        Templates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../020M_Move_semantics_and_smart_pointers/" class="md-nav__link">
+        Move semantics and smart pointers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../020_Exceptions/" class="md-nav__link">
+        Exceptions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../021_The_Standard_Library/" class="md-nav__link">
+        The Standard Library
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../022_std%3A%3Astring/" class="md-nav__link">
+        std::string
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../023_Input_and_output_IO/" class="md-nav__link">
+        Input and output (IO)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_6">
+          ModernCmake
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="ModernCmake" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          ModernCmake
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ModernCmake/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ModernCmake/000_Introduction_to_the_basics/" class="md-nav__link">
+        Intorduction to the basics
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7">
+          Scott Meyers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Scott Meyers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Scott Meyers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7_1" type="checkbox" id="__nav_5_7_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5_7_1">
+          Effective Modern C++
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Effective Modern C++" data-md-level="3">
+        <label class="md-nav__title" for="__nav_5_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Effective Modern C++
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Scott%20Meyers/Effective%20Modern%20C%2B%2B/000_Introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Scott%20Meyers/Effective%20Modern%20C%2B%2B/001_Deducing_Types/" class="md-nav__link">
+        Deducing Types
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Howto
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Howto" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Howto
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../howto/build_vim_ycm_no_sudo/" class="md-nav__link">
+        How to build vim with ycm completer on centos with no sudo access
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Math
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Math" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Math
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/matrix/" class="md-nav__link">
+        Matrix Fundamentals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/vector/" class="md-nav__link">
+        Vectors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Essence of calculus
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Essence of calculus" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Essence of calculus
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_calculus/001_The_Essence_of_Calculus/" class="md-nav__link">
+        The Essence of Caculus
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Essence of linear algebra
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Essence of linear algebra" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Essence of linear algebra
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/001_Vectors_what_even_are_they/" class="md-nav__link">
+        001 Vectors what even are they
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/002_Linear_combinations_span_and_basis_vectors/" class="md-nav__link">
+        Linear combinations, span, and basis vectors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/003_Linear_transformations_and_matrices/" class="md-nav__link">
+        003 Linear transformations and matrices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/004_Matrix_multiplication_as_composition/" class="md-nav__link">
+        Matrix multiplication as composition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/005_Three-dimensional_linear_transformations/" class="md-nav__link">
+        Three-dimensional linear transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/006_The_determinant/" class="md-nav__link">
+        The determinant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/007_Inverse_matrices_column_space_and_null_space/" class="md-nav__link">
+        Inverse matrices, column space and null space
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/008_Nonsquare_matrices_as_transformations_between_dimensions/" class="md-nav__link">
+        Nonsquare matrices as transformations between dimensions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/009_Dot_products_and_duality/" class="md-nav__link">
+        Dot products and duality
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/010_Cross_Products/" class="md-nav__link">
+        Cross Products
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/011_Cross_Products_in_the_light_of_linear_transformations/" class="md-nav__link">
+        Cross products in the light of linear transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/012_Cramers_rule_explained_geometrically/" class="md-nav__link">
+        Cramer's rule, explained geometrically
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/013_Change_of_basis/" class="md-nav__link">
+        Change of basis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/014_Eigenvectors_and_eigenvalues/" class="md-nav__link">
+        Eigenvectors and eigenvalues
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Essence_of_linear_algebra/015_Abstract_vector_spaces/" class="md-nav__link">
+        Abstract vector spaces
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          Math for Game Developers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Math for Game Developers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          Math for Game Developers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/001_Character_Movement/" class="md-nav__link">
+        Math for Game Developers - Character Movement ( Points and Vectors )
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/002_Character_Movement_2/" class="md-nav__link">
+        Character Movement 2 (Subtracting Vectors)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/003_Character_Movement_3/" class="md-nav__link">
+        Math for Game Developers - Character Movement 3 (Vector Length)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/004_Distance_Comparison/" class="md-nav__link">
+        Math for Game Developers - Distance Comparison
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/005_Character_Movement_4/" class="md-nav__link">
+        Math for Game Developers - Character Movement 4
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/006_Character_Movement_5/" class="md-nav__link">
+        Math for Game Developers - Character Movement 5 (Unit-Length Vectors)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/007_Character_Movement_6/" class="md-nav__link">
+        Math for Game Developers - Character Movement 6
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/008_Backstabbing_Dot_Product/" class="md-nav__link">
+        Math for Game Developers - Backstabbing (Dot Product)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/009_Jumping_and_Gravity/" class="md-nav__link">
+        Math for Game Developers - Jumping and Gravity (Time Delta, Game Loop)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Math_for_Game_Developers/010_Mouse_Control_Euler_Angles/" class="md-nav__link">
+        Mouse Control (Euler Angles)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Tensors
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tensors" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Tensors
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../math/Tensors/Kahn_IntroductionToTensors/" class="md-nav__link">
+        Introduction to Tensors
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Rendering
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Rendering" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Rendering
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1" type="checkbox" id="__nav_8_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1">
+          OpenGL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="OpenGL" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          OpenGL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/05_03_2021_benchmarking/" class="md-nav__link">
+        Benchmarking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/Pipeline_Map/" class="md-nav__link">
+        Pipeline Map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3" type="checkbox" id="__nav_8_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3">
+          LearnOpenGL.com
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="LearnOpenGL.com" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          LearnOpenGL.com
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_1" type="checkbox" id="__nav_8_1_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_1">
+          001 Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="001 Getting Started" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          001 Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/000_Creating_a_window/" class="md-nav__link">
+        OpenGL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/001_Hello_Window/" class="md-nav__link">
+        Hello Window
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/002_HelloTriangle/" class="md-nav__link">
+        Hello Triangle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/003_Shaders/" class="md-nav__link">
+        Shaders
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/004_Textures/" class="md-nav__link">
+        Textures
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/005_Transformations/" class="md-nav__link">
+        005 Transformations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/006_Coordinate_Systems/" class="md-nav__link">
+        Coordinate Systems
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/001_Getting_Started/007_Camera/" class="md-nav__link">
+        007 Camera
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_2" type="checkbox" id="__nav_8_1_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_2">
+          002 Lighting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="002 Lighting" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          002 Lighting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/001_Colors/" class="md-nav__link">
+        Colors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/009_Basic_Lighting/" class="md-nav__link">
+        Basic Lighting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/010_Materials/" class="md-nav__link">
+        Materials
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/011_LightingMaps/" class="md-nav__link">
+        Lightin Maps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/012_Light_Casters/" class="md-nav__link">
+        Light Casters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/002_Lighting/013_Multiple_lights/" class="md-nav__link">
+        Multiple Lights
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_3" type="checkbox" id="__nav_8_1_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_3">
+          003 Model Loading
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="003 Model Loading" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          003 Model Loading
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/003_Model_Loading/Assimp/" class="md-nav__link">
+        Assimp
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/003_Model_Loading/Mesh/" class="md-nav__link">
+        Mesh
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_1_3_4" type="checkbox" id="__nav_8_1_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1_3_4">
+          004 Advanced OpenGl
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="004 Advanced OpenGl" data-md-level="4">
+        <label class="md-nav__title" for="__nav_8_1_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          004 Advanced OpenGl
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/001_Depth_testing/" class="md-nav__link">
+        Depth testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/002_Stencil_testing/" class="md-nav__link">
+        Stencil testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/003_Blending/" class="md-nav__link">
+        Blending
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/004_Framebuffers/" class="md-nav__link">
+        Framebuffers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/005_Face_culling/" class="md-nav__link">
+        Face culling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/006_Cubemaps/" class="md-nav__link">
+        Cubemaps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/007_Advanced_Data/" class="md-nav__link">
+        Advanced Data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/008_Advanced_GLSL/" class="md-nav__link">
+        Advanced GLSL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/009_Geometry_Shader/" class="md-nav__link">
+        Geometry Shader
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/010_Instancing/" class="md-nav__link">
+        Instancing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/OpenGL/LearnOpenGL.com/004_Advanced_OpenGl/011_AntiAliasing/" class="md-nav__link">
+        Anti Aliasing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2" type="checkbox" id="__nav_8_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2">
+          Shaders
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Shaders" data-md-level="2">
+        <label class="md-nav__title" for="__nav_8_2">
+          <span class="md-nav__icon md-icon"></span>
+          Shaders
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8_2_1" type="checkbox" id="__nav_8_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2_1">
+          TheArtOfCode
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="TheArtOfCode" data-md-level="3">
+        <label class="md-nav__title" for="__nav_8_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          TheArtOfCode
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/shaders/TheArtOfCode/ShaderToy_Tutorial_Part_2-Building_stuff_with_circles/" class="md-nav__link">
+        Building Stuff with Circles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rendering/shaders/TheArtOfCode/Shadertoy_for_absolute_beginners/" class="md-nav__link">
+        Shadertoy for absolute beginners
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#c-style-strings" class="md-nav__link">
+    C-style strings
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#string-view" class="md-nav__link">
+    String View
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pointers" class="md-nav__link">
+    Pointers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dynamic-memory-allocation-with-new-and-delete" class="md-nav__link">
+    Dynamic Memory Allocation with new and delete
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-variables" class="md-nav__link">
+    Reference Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#for-each-loops" class="md-nav__link">
+    For-each loops
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#void-pointers" class="md-nav__link">
+    Void Pointers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xtra-juice" class="md-nav__link">
+    Xtra juice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdarray" class="md-nav__link">
+    std::array
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdvector" class="md-nav__link">
+    std::vector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iterators" class="md-nav__link">
+    Iterators
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standard-library-algorithms" class="md-nav__link">
+    Standard Library algorithms
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="arrays-strings-pointers-and-references">Arrays, Strings, Pointers, and references</h1>
+<p>An <em>array</em> is a aggregate datat types that lets us access many variables of the same type though a single identifier. They are declared like this:
+<div class="highlight"><pre><span></span><code><span class="n">int</span> <span class="n">testScore</span><span class="p">[</span><span class="mi">30</span><span class="p">]{};</span><span class="o">//</span> <span class="n">allocate</span> <span class="mi">30</span> <span class="n">integer</span> <span class="n">variables</span> <span class="n">in</span> <span class="n">a</span> <span class="n">fixed</span> <span class="n">array</span>
+</code></pre></div></p>
+<p>The 30 in brackets tells the compiler both that this is an array variables as well as the <strong>array length</strong> - the amount of variables to allocate. A <strong>fixed array</strong> is an array where the length is known at compile time. It cannot chaneg length. Each of the variables in an array is called an <strong>element</strong>. They do not have unique identifiers, but are accessed using the <strong>subscript operator ([])</strong> and a parameter called the <strong>subscript</strong> or <strong>index</strong> that tells the compilier which element we want. This is called <strong>subscripting</strong> or <strong>indexing</strong> the array. The <strong>range</strong> of an array is the numbering of the elements in the array. </p>
+<p>Arrays can be made from any data types, including structs. To access struct members:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rects</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">24</span><span class="w"></span>
+</code></pre></div>
+<p>Array subscripts must always be an integral type. These can be char, short, int, long, long long, enums, etc. For fixed array declarations you need the length to be a compile time const - it cannot be calculated dynamically at runtime. </p>
+<p>You can also initialize arrays with an <strong>initizlizer list</strong>:
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">prime</span><span class="p">[</span><span class="mi">5</span><span class="p">]{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+If you are initializing with an initializer list you don't need to specify the length of the array. </p>
+<p>If there are less initilizer in the list than the array can hold, the remaining elements are initialized to 0 - caled <strong>zero initialization</strong>. Even if you are find with all the elements being initialized to 0, you should still initialize them with empty brackets</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="mi">5</span><span class="p">]{</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>For fixed arrays you can have better code documentation by using enums. </p>
+<div class="highlight"><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">StudentNames</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">kenny</span><span class="p">,</span><span class="w"> </span><span class="c1">// 0</span>
+<span class="w">    </span><span class="n">kyle</span><span class="p">,</span><span class="w"> </span><span class="c1">// 1</span>
+<span class="w">    </span><span class="n">stan</span><span class="p">,</span><span class="w"> </span><span class="c1">// 2</span>
+<span class="w">    </span><span class="n">butters</span><span class="p">,</span><span class="w"> </span><span class="c1">// 3</span>
+<span class="w">    </span><span class="n">cartman</span><span class="p">,</span><span class="w"> </span><span class="c1">// 4</span>
+<span class="w">    </span><span class="n">max_students</span><span class="w"> </span><span class="c1">// 5</span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">testScores</span><span class="p">[</span><span class="n">max_students</span><span class="p">]{};</span><span class="w"></span>
+<span class="n">testScores</span><span class="p">[</span><span class="n">stan</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">76</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>When passing arrays to a function, the entire array is not copied. Only the <em>actual</em> array is copied, but not the elements. This means that all elements are passed <strong>by reference</strong> - they can be changed by the function!!To signify that a function will not change the elements of an array you can make the array const. </p>
+<p>Keep in mind that Cpp will not stop you from assigning out of range elements to arrays! That value will simply overwrite that next part of memory, which could be allocated to a different variable!</p>
+<p>The std::size can measure the size of an array. Note that due to how the arrays are passed into functions (as pointers) this will not work on arrays in functions! Also note that std::size returns an unsigned variable. </p>
+<p>For all cases where this is required, you can use a *<em>dynamic array</em>, whose length can be set at runtime. </p>
+<p>You can <strong>iterate</strong> over the values in an array using a loop to apply the same thing to every entry.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">scores</span><span class="p">[]{</span><span class="w"> </span><span class="mi">84</span><span class="p">,</span><span class="w"> </span><span class="mi">92</span><span class="p">,</span><span class="w"> </span><span class="mi">76</span><span class="p">,</span><span class="w"> </span><span class="mi">81</span><span class="p">,</span><span class="w"> </span><span class="mi">56</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">numStudents</span><span class="p">{</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">size</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="c1">// const int numStudents{ sizeof(scores) / sizeof(scores[0]) }; // use this instead if not C++17 capable</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">totalScore</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+
+<span class="c1">// use a loop to calculate totalScore</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">student</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">numStudents</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">student</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">totalScore</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">scores</span><span class="p">[</span><span class="n">student</span><span class="p">];</span><span class="w"></span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">averageScore</span><span class="p">{</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">totalScore</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">numStudents</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>Use std::swap to swap two elements of an array. This is useful when sorting arrays. </p>
+<p>For this lesson the assignment was to write a <a href="https://github.com/daredyoshi/learn_cpp/tree/master/bubble_sort">bubble sort</a> program to sort an array. </p>
+<p>Arrays can also be arrays of arrays called <strong>multidimensional arrays</strong>. When thinking of these like a matrix, it's convenient o think of the first (left) subscript as being the row, and the second (right) subscript as being the column. Interpreting multi-dimensional arrays this way is considered <strong>row-major</strong> order. </p>
+<div class="highlight"><pre><span></span><code><span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">5</span><span class="p">];</span><span class="w"></span>
+</code></pre></div>
+<p>You can initiliaze these arrays with nested braces:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">5</span><span class="p">]{</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<h2 id="c-style-strings">C-style strings</h2>
+<p>You will never use these, but it's interesting to know that std::string are based on <strong>C-style strings</strong> which are <strong>null terminated</strong> strings. This means that a <strong>null terminator</strong> '\0' is used to indicate the end of the string. These strings are essentially arrays of chars, and are defined that way:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">char</span><span class="w"> </span><span class="n">myString</span><span class="p">[]{</span><span class="w"> </span><span class="s">&quot;string&quot;</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>If you conver the string chars to ints, the last will always be zero. Because these strings work exactly like arrays, you can't assigne values of them directly! It's fine if the array is larger than the string it contains, but if you replace the last element in it and print, the print will keep printing until it encounters a zero!</p>
+<p>You should use std::stirng or std::string_view instead of C-syle strings. </p>
+<h2 id="string-view">String View</h2>
+<p>This is an object which, like a pointer, views an existing string object. Prefer this over C-style strings and std::string for read-only strings. It includes function for reducing what parts of the string it referrs to. For this you use std::strnigview.remove_prefix and remove_suffix. It's also not null-terminated. If the string that std::string_view is viewing goes out of scope or becomes unavaliable, then it's uncertain what string_view is pointing to. You can convert it to a std::string by casting it to one. </p>
+<h2 id="pointers">Pointers</h2>
+<p>The <strong>address-of operator (&amp;)</strong> allows us to see what memeory address is assigned to a variable, and the <strong>indirection (*)</strong> operator allows us to access that value. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// print the value of variable x</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// print the memory address of variable x</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="o">&amp;</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">/// print the value at the memory address of variable x (parenthesis not required, but make it easier to read)</span>
+</code></pre></div>
+<p>A <strong>pointer</strong> is a variable that holds a memory address as its value. 
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">iPtr</span><span class="p">{};</span><span class="w"></span>
+</code></pre></div></p>
+<p>The asteric is not an indiretion - it's just part of the pointer declaration syntax. When defining variables it's bettr to put the asterisk next to the variable name, but when returning a pointer from a function it's better to put the asterisk of a pointer return value next to the type.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="nf">doSomething</span><span class="p">();</span><span class="w"></span>
+</code></pre></div>
+<p>One of the most commoon things to do with pointers is to have them hold the address of a different variable. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="err">\\</span><span class="n">inititialize</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">v</span><span class="w"></span>
+</code></pre></div>
+<p>The type of the pointer has to match the type of the variable being pointed to. It's worth noting that the address of (&amp;) doesn't return the addres of its operand as a literal, but returns a pointer containing the address of the operand. </p>
+<p>The other common thing to do with pointers is to get the values that they are pointing at. For this use the indirection (*) operator to evaluate the cnotents of the address it is pointing to. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// ptr point to value</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// print the value that the ptr is pointing to </span>
+</code></pre></div>
+<p>This is why pointers need a type. Without a type, when indirecting throught a pointer, the pointer wouldn't know how to interpret the contents it was poitning to. </p>
+<p>You can reassign pointers to different values of the same type. If your program tries to access a location in memory that's not part of the program, the operating system might crash. Because of this all operating systems sandbox applications. </p>
+<p>What are pointers good for?</p>
+<ol>
+<li>Arrays are implemented using pointers</li>
+<li>They are the only way you can dynamically allocate memory in C++</li>
+<li>They can be used to pass a function as a parameter to another function</li>
+<li>They can be used to achieve polymorphism when dealing with inheritance. </li>
+<li>They can be used to have one struct/class point to another struct/class to form a chain. </li>
+</ol>
+<p>What should you initialize a pointer to if you don't have the memory address yet? The answer is a <strong>null value</strong>, which is a spacial value that means the pointer is not pointing at anything. Pointers pointing at null values are called <strong>null pointers</strong>. They are assigned by initializing the pointer to 0 or (C++ 11) a special value called null ptr. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">nullptr</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>Your pointers should always be initializaed even if it is to null value. Some compilers misinterpret the value of zero and try to initialize pointers to that as an integer, which is why nullptr was added. </p>
+<p>Pointers and arrays are intrinsicalyl related in C++. When you pass an array to a function, it <strong>decays</strong> (is implicitly converted) to a pointer that points to the first element of the array. Because both pointers and arrays can access elements in them with the subscript, it might be better to understand where the data types differ:</p>
+<ol>
+<li>sizeof() on arrays returns the entire array (array length * element size). On a pointer it returns the size of a memory address. </li>
+<li>Using the address-of operator (&amp;) on a pointer yields the memory address of the opinter variables. Of an array it returns a pointer to the entire array. The resulting pointer points to the same address, but the data type is different. </li>
+</ol>
+<p>Arrays degrade to pointers because they have all of the same funcionality and a much smaller memory footprint. They do not decay if they are part of a class or struct. </p>
+<p>When <strong>scaling</strong> a pointer, you are telling it to point to the next object in memory of the pointer's type. This assumes that the next object is the same size as the pointer, and the same type. How is this useful? It's because arrays are laid out sequentially in memory. This is how you grab a specific element in an array. </p>
+<p>These are equal:</p>
+<div class="highlight"><pre><span></span><code><span class="n">array</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="o">*</span><span class="p">(</span><span class="n">array</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<h2 id="dynamic-memory-allocation-with-new-and-delete">Dynamic Memory Allocation with new and delete</h2>
+<p>C++ supports three basic types of memory allocation:</p>
+<ol>
+<li><strong>Static memory allocation</strong> for static and global variables. This is avaliable for the entire runtime of the program. </li>
+<li><strong>Automatic memory allocation</strong> for function parameters and local variables. Memory for these types is allocated when the relevant block is entered, and free when the block is exited. </li>
+<li><strong>Dynamic memory allocation</strong> - which is user controlled. </li>
+</ol>
+<p>Why not just use static and automatic?</p>
+<ol>
+<li>Wasted Memory</li>
+<li>Hard to tell which bits of memory are actually being used. </li>
+<li>Most variables are allocated to a portion of memory called the <strong>stack</strong>, which is usually quite small. This is isually around 1MB, otherwise the operating system will close the program. </li>
+<li>It can lead to artificial limitation and array overflows. What if the user has a name longer than the allocated char[25] array?</li>
+</ol>
+<p>This is where <strong>dynamic memory allocation</strong> comes in. It is a way for running programs to request memory from the operating system when needed. It comes from a much larger pool memory managed by the operating system called the <strong>heap</strong>. On modern machines this is gigabytes in size. </p>
+<p>To allocate a <em>single</em> variable dynamically we use the scalar (non-array) form of the <strong>new</strong> operator. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="p">{</span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">};</span><span class="w"> </span><span class="c1">// dynamically allocate an integer (and discard the result)</span>
+</code></pre></div>
+<p>new int returns a pointer that we are storing in our automatically allocated ptr variable. We can then perform indirection through the pointer to access the memory </p>
+<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w"> </span><span class="c1">//assign value of 7 to allocated memory</span>
+</code></pre></div>
+<p>When you dynamically allocate memory, you're asking the operating system to reserve some of thatmemory for your program's use. You can also directly initilize the variable you are directly allocating:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">ptr1</span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">}}</span><span class="w"></span>
+</code></pre></div>
+<p>To release the variables you use the <strong>delete</strong> operator. You should only delete ptrs that are not pointing to dynamically allocated memeory. A pointer that is pointing to deallocated memory is caleld a <strong>dangling pointer</strong>. After deleting a pointer you should assign it to a nullptr immediately afterward. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">{}</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// dynamically allocate an integer</span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">otherPtr</span><span class="p">{</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// otherPtr is now pointed at that same memory location</span>
+
+<span class="k">delete</span><span class="w"> </span><span class="n">ptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// return the memory to the operating system.  ptr and otherPtr are now dangling pointers.</span>
+<span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"> </span><span class="c1">// ptr is now a nullptr</span>
+
+<span class="c1">// however, otherPtr is still a dangling pointer!</span>
+
+<span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>Operator new can fail if the operating system has no more memory to grant the request with. If this happens, the program will simply terminate with an unhandled exception error. There is an alternate form of new that will return a null pointer if memory can't be allocated. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="p">;</span><span class="w"> </span><span class="err">\\</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">pointer</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">integer</span><span class="w"> </span><span class="n">allocation</span><span class="w"> </span><span class="n">fails</span><span class="p">.</span><span class="w"> </span>
+</code></pre></div>
+<p>At that point you probably want to test if the pointer is null and throw an exception otherwise to elegantly exit the progam. </p>
+<p>Because a pointer can go out of scope without freeing the memory it was pointing to, there can be instances where it is impossible to delete the allocated memory. This is called a <strong>memory leak</strong>. This can also happen if the pointer is assigned to another value, in which case you should have deleted the memory the pointer was pointing towards before re-assigning it. </p>
+<p>Allocate memory for an array and return a pointer:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">array</span><span class="p">{</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="n">length</span><span class="p">]{}</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">array</span><span class="p">;</span><span class="w"></span>
+<span class="n">array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>You cannot have a non-const pointer to a const value. You can have const pointers to non-const values, but not non-const pointers to const values. You can have a const int *ptr to a value and the pointer will think the value is const even if it isn't. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>A <strong>const pointer</strong> is a pointer whose value can not be changed after initialization. The value that this pointer points to cannot be changed. You can also have a const pointer pointing to const int type like this</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
+<span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">value</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<ul>
+<li>A non-const opinter can be redirected to point to other addresses</li>
+<li>A const pointer always oint to the same address, and this address can not be changed</li>
+<li>A pointer to a non-const value can change the value it is pointing to. These pointers can not point to a const value. </li>
+<li>A pointer to a const value treats the value as const (even it is not), and thus cannot change the value it is pointing to. </li>
+</ul>
+<h2 id="reference-variables">Reference Variables</h2>
+<p><strong>Reference variables</strong> can be thought of like instances of a variable, it acts like an alias to another object or value. This is different that pointers that point to the memory address of an object or value, or normal variables, which hold values directly.</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref1</span><span class="p">{</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ref2</span><span class="p">{</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>The second initiliazation form is preferred for variables, and the first for function return types, just like with the address of and indirection operators. References must be initialized when created and won't compile otherwise. They cannot be re-assigned trying to do so will re-assign the value to the reference. They are most often used as function parameters. This is especially useful when the function is intended to modify the variable, and is what people means when they say <strong>"pass by reference"</strong>. </p>
+<p>All varialbes are a type of <strong>l-value</strong> (ell-value), which are values that have an address in memory. These are the only values that are on the left side of an assignment statement. The opposite of l-values are <strong>r-valuse</strong> - the are expressions that are not l-values. </p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+</code></pre></div>
+<p>In the above statement x is both used as an l-value and an r-value. The key takewaway is that the right side you have something that will be evaluated and then put into the variable's address in memory on the left side. </p>
+<p>You can have const references just like const pointers. Unlike pointers you can have const references to non-const values. This is great if you want to illustrate that this reference variable won't change. A great use of const references is as function parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">changeN</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ref</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w"> </span><span class="c1">//not allowed, ref is const. </span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>When passing C-style arrays to a function, if they are passed as reference they do not decay. Their size needs to be defined in the parameter though. References are particularly useful when used as an alias for deeply nested objects. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ref</span><span class="p">{</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">somthing</span><span class="p">.</span><span class="n">value1</span><span class="w">  </span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>References are generally much safer than pointers, but have more limited functionality. Pointers should only be used in situations where references are not sufficient (such as dynamically allocating memory). For references the compilier automatically add the indirection, which we'd do manually on a pointer using an asterisk. Pass non-pointer, non-fundamental data type variables (such as structs) by (const) reference, unless you konw that passing it by value is faster. </p>
+<p>Structs are generally passed around by reference or pointer
+<div class="highlight"><pre><span></span><code><span class="k">struct</span><span class="w"> </span><span class="nc">Person</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">weight</span><span class="p">{};</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="n">Person</span><span class="w"> </span><span class="n">person</span><span class="p">{};</span><span class="w"></span>
+<span class="n">Person</span><span class="w"> </span><span class="o">&amp;</span><span class="n">ref</span><span class="p">{</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">Person</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">person</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">ptr</span><span class="o">-&gt;</span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="err">\\</span><span class="w"> </span><span class="n">remember</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">ptr</span><span class="p">).</span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"></span>
+</code></pre></div></p>
+<p>Remember that the * does the same as indirection followed by the . member selection. When using a pointer to access teh value of a member, use the operator -&gt; instead of the (.)</p>
+<h2 id="for-each-loops">For-each loops</h2>
+<p>For most loops, it's simpler and safer to use a <strong>for-each</strong> loop instead of manual for loops. The syntax is as follows:</p>
+<div class="highlight"><pre><span></span><code>for (element_declaration : array)
+    statement;
+</code></pre></div>
+<p>For each loops are a great place to use the auto keyword. This saves a lot of time when refactoring the contents of a list. Because the list is alerady strongly typed, the auto is not ambiguous. </p>
+<div class="highlight"><pre><span></span><code>for(auto number : fibonacci){ \\ type is auto, so number has its type deducted from the fibonacci arary
+    std::cout &lt;&lt; number &lt;&lt; &#39; &#39;;
+}
+</code></pre></div>
+<p>The above example copies the value into number from fibonacci. In most cases it's more efficient to do this by reference:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="p">(</span><span class="n">autch</span><span class="w"> </span><span class="o">&amp;</span><span class="n">number</span><span class="o">:</span><span class="w"> </span><span class="n">array</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="err">```</span><span class="w"></span>
+
+<span class="n">In</span><span class="w"> </span><span class="k">for</span><span class="o">-</span><span class="n">each</span><span class="w"> </span><span class="n">loops</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="n">declarations</span><span class="p">,</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">non</span><span class="o">-</span><span class="n">fundamental</span><span class="w"> </span><span class="n">types</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">references</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">references</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">performance</span><span class="w"> </span><span class="n">reasons</span><span class="p">.</span><span class="w"> </span><span class="n">As</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">cpp</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">assigne</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">loop</span><span class="o">:</span><span class="w"></span>
+
+<span class="err">```</span><span class="n">cpp</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">scores</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<h2 id="void-pointers">Void Pointers</h2>
+<p>Similar to the auto keyword, the <strong>void pointer</strong> can point at any datatype. This is great, but indirection will not work because the void pointer doesn't know how large the data type is. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">voidPtr</span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">voidPtr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="w"> </span><span class="c1">// this will not compile</span>
+<span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">intPtr</span><span class="p">{</span><span class="w"> </span><span class="n">static_case</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">voidPtr</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// you need to cast to int first</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">intPtr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+<p>The difficulty with void points is that you need to keep track of what their data type is. </p>
+<h2 id="xtra-juice">Xtra juice</h2>
+<p>Interesting but rarely used knowlage: you can have pointers to pointers:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">**</span><span class="n">ptrptr</span><span class="p">;</span><span class="w"> </span><span class="err">\\</span><span class="w"> </span><span class="n">pointer</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">pointer</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">asterisks</span><span class="w"></span>
+</code></pre></div>
+<p>The most common use for this is to dynamically allocate an array of pointers. This is like a standard dynamically allocated array, except the array elemeents are of type "pointer to integer" instead of integer. This is espcially useful for multidimensional arrays of pointers. </p>
+<div class="highlight"><pre><span></span><code><span class="kt">int</span><span class="w"> </span><span class="o">**</span><span class="n">array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="w"> </span><span class="err">\\</span><span class="w"> </span><span class="n">allocate</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">array</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">pointers</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">rows</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="n">count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">++</span><span class="n">count</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">array</span><span class="p">[</span><span class="n">cout</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">[</span><span class="mi">5</span><span class="p">];</span><span class="w"> </span><span class="err">\\</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">columns</span><span class="p">.</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="err">\\</span><span class="n">deallocating</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">array</span><span class="w"> </span><span class="n">also</span><span class="w"> </span><span class="k">requires</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">loop</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">count</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">array</span><span class="p">[</span><span class="n">count</span><span class="p">];</span><span class="w"></span>
+<span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">array</span><span class="p">;</span><span class="w"> </span><span class="c1">// this needs to be done last</span>
+</code></pre></div>
+<p>We need to deallocate the array elements first, then the array. Otherwise there would be no array left to access the elements that we are deleting. </p>
+<p>Instead of complex multidimensional arrays consider a flat array where you access the elements by the (row * numberOfColumnsInArray) + col;</p>
+<p>Generally avoid using pointers to pointers unless no other options are available.</p>
+<h2 id="stdarray">std::array</h2>
+<p>This object provides fixed array functionality and does not decay into a pointer when passed to a function. </p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="o">&gt;</span><span class="w"> </span><span class="n">myArray</span><span class="w"> </span><span class="p">{</span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>One good thing about std::array is using the myArray.at(1) function to acces elements. This will throw an error if out of range unlike the [] operators. It will also clean up after itself when out of scope. Because it is not a fundamental data type you should alsoway pass std::array by reference or const reference. </p>
+<p>You can sort std::array using std::sort which lives in the <algorithm> header.</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">myArray</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">myArray</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="w"></span>
+</code></pre></div>
+<p>std::array also come with a .size() function which is really nice when looping over the elements. It's a bit weird through, because .size() return an unsigned integral data type defined inside of std::array so when looping over it you have to do it like this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="w"> </span><span class="n">myArray</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="o">&gt;::</span><span class="n">size_type</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">myArray</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">myArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>A better solution is to just avoid manual indexing of std::array and use a range-based for loop</p>
+<p>This still makes it a challenge to iterate over the array in reverse because size is an unsigned int. For this modify i each iteration and see if that it still above zero to prevent i from ever reaching zero and then looping back up to the maximum value. </p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="w"> </span><span class="n">myArray</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">i</span><span class="o">--</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">myArray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>When initializing an array of structs or nested array, it can be confusing with the braces. The first element in the initialization is the key argument, and arrays of arrays must be defined within in:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Array</span><span class="w"> </span><span class="n">houses</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Those extra braces are imporant! std::array is a great replacement for the build build-in fixed array, but with a slightly awkward syntax. </p>
+<h2 id="stdvector">std::vector</h2>
+<p>The true dynamic list obect! This is what you use to work with dynamic arrays. It's one of the most useful and versatile tools. With std::vector you can create arrays that have their length set at runtime without having to explicitly allocate and deallocate memory using new and delete. It lives in the <code>&lt;vector&gt;</code> headers. </p>
+<p>Declaring it is simple:</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">myArray</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+</code></pre></div>
+<p>Note that you do not need to include the array length at compile time. std::vector will dynamically allocate. Because it cleans itself up when going out of scope you do not need to worry about memeory leaks. Vectors also remember their length. Resizing a std::vector is as simple as calling the resize() function.</p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="w"> </span><span class="n">array</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">array</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+<p>This is still computationally expensive, so you should still try to minimize the cases where you resize vectors. You should use std::vector in most cases where dynamic arrays are needed. </p>
+<h2 id="iterators">Iterators</h2>
+<p>How do range-based for loops work? An <strong>iterator</strong> is an object designed to traverse through a container while providing access to each element while it's doing so. Pointers are the simplest kind of iterator. Because a pointer knows the size of memory to increment, you can use it to iterate over a block of memory. </p>
+<div class="highlight"><pre><span></span><code><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">auto</span><span class="w"> </span><span class="n">begin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">&amp;</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="err">\\</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">pointer</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="n">element</span><span class="w"></span>
+<span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">begin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">size</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="err">\\</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="n">spot</span><span class="w"> </span><span class="n">beyond</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">last</span><span class="w"> </span><span class="n">element</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">spot</span><span class="w"> </span><span class="n">where</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">stop</span><span class="w"> </span><span class="n">iterating</span><span class="p">.</span><span class="w"> </span>
+
+<span class="k">for</span><span class="p">(</span><span class="n">ato</span><span class="w"> </span><span class="n">ptr</span><span class="p">{</span><span class="w"> </span><span class="n">begin</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="n">ptr</span><span class="o">!=</span><span class="n">end</span><span class="w"> </span><span class="o">++</span><span class="n">ptr</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Because iterating is so common, the array objct has convenience function named begin and end</p>
+<div class="highlight"><pre><span></span><code><span class="k">auto</span><span class="w"> </span><span class="n">begin</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">array</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="k">auto</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">array</span><span class="p">.</span><span class="n">end</span><span class="p">()};</span><span class="w"></span>
+</code></pre></div>
+<p>If it's not an array you can also use std::begin(array) and std::end(array). Any type that has a begin and end function or can be used with std::begin and std::end are usable directly in range-based-for loops (this is what they look for). </p>
+<div class="highlight"><pre><span></span><code>for (int i: array) \\ array has array.begin() and array.end()
+</code></pre></div>
+<p>Behind the scenes begin() and end() are called. Dynamic arrays won't work though, because there is no end() function. </p>
+<p>If the elements being iterated over change address or are destroyed iterator can be left dangling: then they are reffered to as <strong>invalidated</strong>. Accessing invalidated iterators produces undefined behaviour. </p>
+<h2 id="standard-library-algorithms">Standard Library algorithms</h2>
+<p>Don't type up your own complex for loops for things you can easily do with std. These are all found in the <code>&lt;algorithms&gt;</code> <a href="https://en.cppreference.com/w/cpp/algorithm">library</a>. </p>
+<ul>
+<li><strong>std::find</strong> searched for the first occurrence of a value. <code>std::find{arr.begin(), arr.end(), search)}</code></li>
+<li><strong>std::find_if</strong> 
+<div class="highlight"><pre><span></span><code>bool containsNut(std::string_view str){
+    // std::string_view::find returns std::string_view::npos if it doesn&#39;t find the substring. Otherwise it returns the index where the sustring occurs in str. 
+    return (str.find(&quot;nut&quot;) != std::string_view::npos);
+}
+
+int main(){
+    auto found{ std::find_if(arr.begin(), arr.end(), containsNut) };
+}
+</code></pre></div></li>
+</ul>
+<p>This return all elements of the array if they contain nut (I did abbreviate this for berevity). The string view object has a function find which returns a bool. That is used on each element in the array until one is found. </p>
+<ul>
+<li>
+<p><strong>std::count</strong> and <strong>std::count_if</strong> see how many occurances in an iterator match the comparison. </p>
+</li>
+<li>
+<p><strong>std::sort</strong> for custom sorting. This takes in a function very similar to std::find_if. <code>std::sort(arr.begin(), arr.end(), std::greater&lt;int&gt;{})</code> - greater is also part of std</p>
+</li>
+<li>
+<p><strong>std::for_each</strong> with a function applies that to every element of the list:</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kt">void</span><span class="w"> </span><span class="nf">doubleNumber</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">&amp;</span><span class="n">i</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="n">i</span><span class="o">*=</span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">for_each</span><span class="p">(</span><span class="n">arr</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="w"> </span><span class="n">arr</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">doubleNumber</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>The advantage here is that you easile set the beginning and end. </p>
+<ul>
+<li>
+<p><strong>std::reduce</strong> applies a function to all elements in a list (by default the + operator), which results in a single value. By default (+), this is the sum of all the elements of the list. </p>
+</li>
+<li>
+<p><strong>std::accumulate</strong> - this does the same as std::reduce, but from left-toright</p>
+</li>
+<li>
+<p><strong>std::shuffle</strong> takes a list and randomly re-orders its elements.</p>
+</li>
+</ul>
+<p>Unless otherwise specified, do not assume that the standard ilbrary algorithms will execute in a particular sequence. This means they do not iterate over the for-loop in sequential order, but in parallel. Favor these functions over writing your own. </p>
+<p>A game I wrote with the concepts of this chapter can be found <a href="https://github.com/daredyoshi/learn_cpp/blob/master/card_game/src/CardGame.cpp">here</a></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../008_Compound_types/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Compound Types" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Compound Types
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../010_Functions/" class="md-footer__link md-footer__link--next" aria-label="Next: Functions" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Functions
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.748e2769.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
